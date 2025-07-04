@@ -1,0 +1,14 @@
+;; sample.sxd - Example S-expression diagram
+(diagram
+  (size 800 400)                 ; 描画領域 (幅 高さ)
+  (node-style :shape "rect")     ; デフォルト属性
+  (edge-style :stroke "#555")
+
+  (nodes                         ; ノード一覧
+    (id "A" :label "開始")
+    (id "B" :label "処理")
+    (id "C" :label "終了" :shape "ellipse"))
+
+  (edges                         ; エッジ一覧
+    ("A" "B" :label "next")
+    ("B" "C")))
