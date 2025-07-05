@@ -509,6 +509,262 @@ func TestIsValidEdgeStyle(t *testing.T) {
 	}
 }
 
+// TestValidatorEdgeCases tests additional edge cases and error scenarios
+func TestValidatorEdgeCases(t *testing.T) {
+	tests := []struct {
+		name        string
+		diagram     *Diagram
+		expectErr   bool
+		errContains string
+	}{
+		{
+			name: "node with whitespace-only ID",
+			diagram: &Diagram{
+				Nodes: []Node{
+					{ID: "   ", Label: "Whitespace ID"},
+				},
+			},
+			expectErr:   false, // Validator doesn't trim whitespace
+		},
+		{
+			name: "edge with whitespace-only from",
+			diagram: &Diagram{
+				Nodes: []Node{
+					{ID: "A", Label: "Node A"},
+				},
+				Edges: []Edge{
+					{From: "  ", To: "A"},
+				},
+			},
+			expectErr:   true,
+			errContains: "'from' node '  ' does not exist",
+		},
+		{
+			name: "very long node ID",
+			diagram: &Diagram{
+				Nodes: []Node{
+					{ID: strings.Repeat("A", 1000), Label: "Long ID"},
+				},
+			},
+			expectErr: false, // Should be valid
+		},
+		{
+			name: "special characters in node ID",
+			diagram: &Diagram{
+				Nodes: []Node{
+					{ID: "node-123_test.v2", Label: "Special chars"},
+					{ID: "@node!", Label: "More special"},
+				},
+			},
+			expectErr: false, // Should be valid
+		},
+		{
+			name: "nil attributes map",
+			diagram: &Diagram{
+				Nodes: []Node{
+					{ID: "A", Label: "Node A", Attributes: nil},
+				},
+				Edges: []Edge{
+					{From: "A", To: "A", Attributes: nil},
+				},
+			},
+			expectErr: false, // Should handle nil gracefully
+		},
+		{
+			name: "multiple shape attributes",
+			diagram: &Diagram{
+				Nodes: []Node{
+					{ID: "A", Attributes: map[string]string{
+						"shape": "rect",
+						"Shape": "ellipse", // Different case
+					}},
+				},
+			},
+			expectErr: false, // Both should be checked
+		},
+		{
+			name: "cyclic edges",
+			diagram: &Diagram{
+				Nodes: []Node{
+					{ID: "A"},
+					{ID: "B"},
+					{ID: "C"},
+				},
+				Edges: []Edge{
+					{From: "A", To: "B"},
+					{From: "B", To: "C"},
+					{From: "C", To: "A"},
+				},
+			},
+			expectErr: false, // Cycles should be allowed
+		},
+		{
+			name: "duplicate edges",
+			diagram: &Diagram{
+				Nodes: []Node{
+					{ID: "A"},
+					{ID: "B"},
+				},
+				Edges: []Edge{
+					{From: "A", To: "B"},
+					{From: "A", To: "B"}, // Duplicate
+				},
+			},
+			expectErr: false, // Duplicates might be allowed
+		},
+		{
+			name: "edge style case variations",
+			diagram: &Diagram{
+				Nodes: []Node{
+					{ID: "A"},
+				},
+				Edges: []Edge{
+					{From: "A", To: "A", Attributes: map[string]string{"style": "SOLID"}},
+				},
+			},
+			expectErr:   true,
+			errContains: "invalid style 'SOLID'", // Case sensitive
+		},
+		{
+			name: "empty attribute values",
+			diagram: &Diagram{
+				Nodes: []Node{
+					{ID: "A", Attributes: map[string]string{
+						"shape": "",
+						"color": "",
+					}},
+				},
+			},
+			expectErr:   true,
+			errContains: "invalid shape ''",
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			validator := NewValidator()
+			err := validator.Validate(tt.diagram)
+
+			if tt.expectErr {
+				if err == nil {
+					t.Errorf("Expected error, but validation passed")
+				} else if !strings.Contains(err.Error(), tt.errContains) {
+					t.Errorf("Expected error to contain '%s', got: %v", tt.errContains, err)
+				}
+			} else {
+				if err != nil {
+					t.Errorf("Expected no error, but got: %v", err)
+				}
+			}
+		})
+	}
+}
+
+// TestValidatorNilHandling tests validator behavior with nil inputs
+func TestValidatorNilHandling(t *testing.T) {
+	t.Run("nil diagram", func(t *testing.T) {
+		validator := NewValidator()
+		
+		// Validator doesn't handle nil diagrams, it will panic
+		defer func() {
+			if r := recover(); r == nil {
+				t.Errorf("Expected panic for nil diagram")
+			}
+		}()
+		
+		_ = validator.Validate(nil)
+	})
+
+	t.Run("nil nodes slice", func(t *testing.T) {
+		diagram := &Diagram{
+			Nodes: nil,
+			Edges: []Edge{},
+		}
+		validator := NewValidator()
+		err := validator.Validate(diagram)
+		if err != nil {
+			t.Errorf("Expected nil nodes slice to be valid, got: %v", err)
+		}
+	})
+
+	t.Run("nil edges slice", func(t *testing.T) {
+		diagram := &Diagram{
+			Nodes: []Node{{ID: "A"}},
+			Edges: nil,
+		}
+		validator := NewValidator()
+		err := validator.Validate(diagram)
+		if err != nil {
+			t.Errorf("Expected nil edges slice to be valid, got: %v", err)
+		}
+	})
+}
+
+// TestValidatorErrorAccumulation tests that validator collects all errors
+func TestValidatorErrorAccumulation(t *testing.T) {
+	diagram := &Diagram{
+		Nodes: []Node{
+			{ID: "", Label: "Empty1"},
+			{ID: "", Label: "Empty2"},
+			{ID: "A", Attributes: map[string]string{"shape": "invalid1"}},
+			{ID: "B", Attributes: map[string]string{"shape": "invalid2"}},
+			{ID: "A", Label: "Duplicate"},
+		},
+		Edges: []Edge{
+			{From: "X", To: "Y"},
+			{From: "A", To: "Z"},
+			{From: "", To: "A"},
+			{From: "A", To: "", Attributes: map[string]string{"style": "wrong"}},
+		},
+	}
+
+	validator := NewValidator()
+	err := validator.Validate(diagram)
+
+	if err == nil {
+		t.Fatalf("Expected validation to fail")
+	}
+
+	errors := validator.GetErrors()
+	if len(errors) < 5 {
+		t.Errorf("Expected at least 5 errors, got %d", len(errors))
+	}
+
+	// Verify error variety
+	emptyIDCount := 0
+	duplicateCount := 0
+	invalidShapeCount := 0
+	invalidRefCount := 0
+
+	for _, e := range errors {
+		if strings.Contains(e.Message, "empty") {
+			emptyIDCount++
+		}
+		if strings.Contains(e.Message, "duplicate") {
+			duplicateCount++
+		}
+		if strings.Contains(e.Message, "shape") {
+			invalidShapeCount++
+		}
+		if strings.Contains(e.Message, "does not exist") {
+			invalidRefCount++
+		}
+	}
+
+	if emptyIDCount == 0 {
+		t.Errorf("Expected empty ID errors")
+	}
+	if duplicateCount == 0 {
+		t.Errorf("Expected duplicate ID errors")
+	}
+	if invalidShapeCount == 0 {
+		t.Errorf("Expected invalid shape errors")
+	}
+	if invalidRefCount == 0 {
+		t.Errorf("Expected invalid reference errors")
+	}
+}
+
 // BenchmarkValidator benchmarks validator performance
 func BenchmarkValidator(b *testing.B) {
 	// Create a reasonably complex diagram

@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"math"
+	"strings"
 	"testing"
 )
 
@@ -498,6 +499,296 @@ func BenchmarkLayout(b *testing.B) {
 			b.Fatalf("Layout error: %v", err)
 		}
 	}
+}
+
+// TestLayoutErrorCases tests error handling in layout engine
+func TestLayoutErrorCases(t *testing.T) {
+	tests := []struct {
+		name        string
+		diagram     *Diagram
+		expectErr   bool
+		errContains string
+	}{
+		{
+			name:        "nil diagram",
+			diagram:     nil,
+			expectErr:   true,
+			errContains: "nil diagram",
+		},
+		{
+			name: "invalid canvas size",
+			diagram: &Diagram{
+				Width:  -100,
+				Height: -200,
+				Nodes:  []Node{{ID: "A"}},
+			},
+			expectErr:   false, // Layout doesn't validate canvas size
+		},
+		{
+			name: "zero canvas size",
+			diagram: &Diagram{
+				Width:  0,
+				Height: 0,
+				Nodes:  []Node{{ID: "A"}},
+			},
+			expectErr: false, // Should use default size
+		},
+		{
+			name: "edge references non-existent node",
+			diagram: &Diagram{
+				Nodes: []Node{{ID: "A"}},
+				Edges: []Edge{{From: "A", To: "B"}},
+			},
+			expectErr:   false, // Layout doesn't validate edge references
+		},
+		{
+			name: "duplicate node IDs",
+			diagram: &Diagram{
+				Nodes: []Node{
+					{ID: "A", Label: "First A"},
+					{ID: "A", Label: "Second A"},
+				},
+			},
+			expectErr: false, // Layout should handle this gracefully
+		},
+		{
+			name: "extremely large diagram",
+			diagram: &Diagram{
+				Width:  1000000,
+				Height: 1000000,
+				Nodes: []Node{
+					{ID: "A"},
+				},
+			},
+			expectErr: false, // Should handle large sizes
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			layouter := NewSimpleLayouter()
+			
+			// Handle potential panics for nil diagram
+			if tt.diagram == nil {
+				defer func() {
+					if r := recover(); r == nil {
+						t.Errorf("Expected panic for nil diagram, but none occurred")
+					}
+				}()
+			}
+			
+			layout, err := layouter.LayoutDiagram(tt.diagram)
+
+			if tt.expectErr {
+				if err == nil && tt.diagram != nil {
+					t.Errorf("Expected error, but layout succeeded")
+				} else if err != nil && tt.errContains != "" && !strings.Contains(err.Error(), tt.errContains) {
+					t.Errorf("Expected error to contain '%s', got: %v", tt.errContains, err)
+				}
+			} else {
+				if err != nil {
+					t.Errorf("Expected no error, but got: %v", err)
+				}
+				if layout == nil {
+					t.Errorf("Expected layout to be non-nil")
+				}
+			}
+		})
+	}
+}
+
+// TestLayoutEdgeCases tests edge cases in layout algorithm
+func TestLayoutEdgeCases(t *testing.T) {
+	layouter := NewSimpleLayouter()
+
+	t.Run("self-referencing edge", func(t *testing.T) {
+		diagram := &Diagram{
+			Nodes: []Node{{ID: "A", Label: "Self Ref"}},
+			Edges: []Edge{{From: "A", To: "A"}},
+		}
+
+		layout, err := layouter.LayoutDiagram(diagram)
+		if err != nil {
+			t.Errorf("Expected self-reference to be handled, got error: %v", err)
+		}
+		if len(layout.Edges) != 1 {
+			t.Errorf("Expected 1 edge, got %d", len(layout.Edges))
+		}
+	})
+
+	t.Run("very long node labels", func(t *testing.T) {
+		longLabel := strings.Repeat("Very Long Label ", 100)
+		diagram := &Diagram{
+			Nodes: []Node{
+				{ID: "A", Label: longLabel},
+			},
+		}
+
+		layout, err := layouter.LayoutDiagram(diagram)
+		if err != nil {
+			t.Errorf("Expected long labels to be handled, got error: %v", err)
+		}
+		node := layout.Nodes["A"]
+		if node.Label != longLabel {
+			t.Errorf("Expected label to be preserved")
+		}
+	})
+
+	t.Run("dense graph", func(t *testing.T) {
+		// Create a fully connected graph
+		nodes := []Node{
+			{ID: "A"}, {ID: "B"}, {ID: "C"}, {ID: "D"},
+		}
+		var edges []Edge
+		for i := 0; i < len(nodes); i++ {
+			for j := 0; j < len(nodes); j++ {
+				if i != j {
+					edges = append(edges, Edge{
+						From: nodes[i].ID,
+						To:   nodes[j].ID,
+					})
+				}
+			}
+		}
+
+		diagram := &Diagram{
+			Nodes: nodes,
+			Edges: edges,
+		}
+
+		layout, err := layouter.LayoutDiagram(diagram)
+		if err != nil {
+			t.Errorf("Expected dense graph to be handled, got error: %v", err)
+		}
+		if len(layout.Edges) != 12 { // 4 nodes, fully connected = 4*3 = 12 edges
+			t.Errorf("Expected 12 edges, got %d", len(layout.Edges))
+		}
+	})
+
+	t.Run("node with many attributes", func(t *testing.T) {
+		attrs := make(map[string]string)
+		for i := 0; i < 100; i++ {
+			attrs[fmt.Sprintf("attr%d", i)] = fmt.Sprintf("value%d", i)
+		}
+		attrs["shape"] = "rect"
+
+		diagram := &Diagram{
+			Nodes: []Node{
+				{ID: "A", Label: "Many Attrs", Attributes: attrs},
+			},
+		}
+
+		layout, err := layouter.LayoutDiagram(diagram)
+		if err != nil {
+			t.Errorf("Expected many attributes to be handled, got error: %v", err)
+		}
+		node := layout.Nodes["A"]
+		if node.Shape != "rect" {
+			t.Errorf("Expected shape to be rect, got %s", node.Shape)
+		}
+	})
+}
+
+// TestLayoutCustomDimensions tests custom layouter dimensions
+func TestLayoutCustomDimensions(t *testing.T) {
+	layouter := &SimpleLayouter{
+		NodeWidth:     200.0,
+		NodeHeight:    100.0,
+		HorizontalGap: 50.0,
+		VerticalGap:   30.0,
+	}
+
+	diagram := &Diagram{
+		Nodes: []Node{
+			{ID: "A"}, {ID: "B"},
+		},
+		Edges: []Edge{
+			{From: "A", To: "B"},
+		},
+	}
+
+	layout, err := layouter.LayoutDiagram(diagram)
+	if err != nil {
+		t.Errorf("Unexpected error: %v", err)
+	}
+
+	// Check custom dimensions are used
+	for _, node := range layout.Nodes {
+		if node.Width != 200.0 {
+			t.Errorf("Expected node width 200, got %f", node.Width)
+		}
+		if node.Height != 100.0 {
+			t.Errorf("Expected node height 100, got %f", node.Height)
+		}
+	}
+}
+
+// TestLayoutStressTest tests layout with various stress scenarios
+func TestLayoutStressTest(t *testing.T) {
+	layouter := NewSimpleLayouter()
+
+	t.Run("empty node IDs", func(t *testing.T) {
+		diagram := &Diagram{
+			Nodes: []Node{
+				{ID: "", Label: "Empty ID"},
+			},
+		}
+
+		_, err := layouter.LayoutDiagram(diagram)
+		if err != nil {
+			t.Errorf("Layout doesn't validate empty node IDs, got unexpected error: %v", err)
+		}
+	})
+
+	t.Run("unicode node IDs", func(t *testing.T) {
+		diagram := &Diagram{
+			Nodes: []Node{
+				{ID: "🚀", Label: "Rocket"},
+				{ID: "🌟", Label: "Star"},
+			},
+			Edges: []Edge{
+				{From: "🚀", To: "🌟"},
+			},
+		}
+
+		layout, err := layouter.LayoutDiagram(diagram)
+		if err != nil {
+			t.Errorf("Expected unicode IDs to work, got error: %v", err)
+		}
+		if len(layout.Nodes) != 2 {
+			t.Errorf("Expected 2 nodes, got %d", len(layout.Nodes))
+		}
+	})
+
+	t.Run("extreme coordinates", func(t *testing.T) {
+		// Test with nodes that would result in extreme positions
+		nodes := make([]Node, 1000)
+		edges := make([]Edge, 999)
+		for i := 0; i < 1000; i++ {
+			nodes[i] = Node{ID: fmt.Sprintf("N%d", i)}
+			if i > 0 {
+				edges[i-1] = Edge{
+					From: fmt.Sprintf("N%d", i-1),
+					To:   fmt.Sprintf("N%d", i),
+				}
+			}
+		}
+
+		diagram := &Diagram{
+			Nodes: nodes,
+			Edges: edges,
+		}
+
+		layout, err := layouter.LayoutDiagram(diagram)
+		if err != nil {
+			t.Errorf("Expected large chain to be handled, got error: %v", err)
+		}
+
+		// Check that layout dimensions are reasonable
+		if layout.Width <= 0 || layout.Height <= 0 {
+			t.Errorf("Expected positive dimensions, got %fx%f", layout.Width, layout.Height)
+		}
+	})
 }
 
 // BenchmarkLargeLayout benchmarks layout with larger graphs
