@@ -1,0 +1,73 @@
+; Network topology diagram
+; This example shows a typical network architecture with servers and connections
+
+(diagram
+  (size 1000 700)
+
+  ; Style for network components
+  (node-style :shape "rect" :fill "#f5f5f5")
+  (edge-style :stroke "#666666" :stroke-width "2")
+
+  (nodes
+    ; Internet and firewall
+    (id "internet" :label "Internet" :shape "ellipse" :fill "#87ceeb")
+    (id "firewall" :label "Firewall" :shape "rect" :fill "#ff4500")
+
+    ; Load balancer
+    (id "lb" :label "Load Balancer" :shape "diamond" :fill "#ffd700")
+
+    ; Web servers
+    (id "web1" :label "Web Server 1" :fill "#98fb98")
+    (id "web2" :label "Web Server 2" :fill "#98fb98")
+    (id "web3" :label "Web Server 3" :fill "#98fb98")
+
+    ; Application servers
+    (id "app1" :label "App Server 1" :fill "#dda0dd")
+    (id "app2" :label "App Server 2" :fill "#dda0dd")
+
+    ; Database cluster
+    (id "db_master" :label "DB Master" :shape "rect" :fill "#4169e1" :color "#ffffff")
+    (id "db_slave1" :label "DB Slave 1" :shape "rect" :fill "#6495ed")
+    (id "db_slave2" :label "DB Slave 2" :shape "rect" :fill "#6495ed")
+
+    ; Cache server
+    (id "cache" :label "Redis Cache" :shape "ellipse" :fill "#dc143c" :color "#ffffff")
+
+    ; Storage
+    (id "storage" :label "File Storage" :shape "rect" :fill "#d2691e" :color "#ffffff"))
+
+  (edges
+    ; Internet connection
+    ("internet" "firewall" :label "HTTPS" :style "bold")
+    ("firewall" "lb" :label "filtered")
+
+    ; Load balancer to web servers
+    ("lb" "web1" :style "dashed")
+    ("lb" "web2" :style "dashed")
+    ("lb" "web3" :style "dashed")
+
+    ; Web to app servers
+    ("web1" "app1" :label "API")
+    ("web1" "app2" :label "API")
+    ("web2" "app1" :label "API")
+    ("web2" "app2" :label "API")
+    ("web3" "app1" :label "API")
+    ("web3" "app2" :label "API")
+
+    ; App servers to database
+    ("app1" "db_master" :label "write" :stroke "#ff0000")
+    ("app2" "db_master" :label "write" :stroke "#ff0000")
+    ("app1" "db_slave1" :label "read" :stroke "#008000")
+    ("app2" "db_slave2" :label "read" :stroke "#008000")
+
+    ; Database replication
+    ("db_master" "db_slave1" :label "sync" :style "dotted")
+    ("db_master" "db_slave2" :label "sync" :style "dotted")
+
+    ; Cache connections
+    ("app1" "cache" :label "cache" :style "dashed")
+    ("app2" "cache" :label "cache" :style "dashed")
+
+    ; Storage connections
+    ("app1" "storage" :label "files")
+    ("app2" "storage" :label "files")))

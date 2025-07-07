@@ -1,0 +1,22 @@
+; Basic flow diagram example
+; This demonstrates a simple process flow with basic nodes and edges
+
+(diagram
+  (size 800 600)
+
+  ; Define nodes
+  (nodes
+    (id "start" :label "Start")
+    (id "input" :label "Get User Input")
+    (id "validate" :label "Validate Input")
+    (id "process" :label "Process Data")
+    (id "output" :label "Display Result")
+    (id "end" :label "End"))
+
+  ; Define edges
+  (edges
+    ("start" "input")
+    ("input" "validate" :label "data")
+    ("validate" "process" :label "valid")
+    ("process" "output")
+    ("output" "end" :label "complete")))

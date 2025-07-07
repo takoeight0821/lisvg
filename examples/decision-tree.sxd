@@ -1,0 +1,68 @@
+; Decision tree diagram
+; This example demonstrates a decision-making process with branching logic
+
+(diagram
+  (size 1000 800)
+
+  ; Style for decision tree
+  (node-style :shape "rect" :fill "#f0f0f0")
+  (edge-style :stroke "#2c3e50" :stroke-width "2")
+
+  (nodes
+    ; Root decision
+    (id "start" :label "Customer Service Request" :shape "ellipse" :fill "#3498db" :color "#ffffff")
+
+    ; First level decisions
+    (id "type" :label "Request Type?" :shape "diamond" :fill "#f39c12")
+
+    ; Technical branch
+    (id "technical" :label "Technical Issue" :fill "#e74c3c")
+    (id "severity" :label "Severity?" :shape "diamond" :fill "#f39c12")
+    (id "critical" :label "Critical Issue" :fill "#c0392b")
+    (id "normal" :label "Normal Issue" :fill "#e67e22")
+
+    ; Billing branch
+    (id "billing" :label "Billing Issue" :fill "#9b59b6")
+    (id "amount" :label "Amount > $100?" :shape "diamond" :fill "#f39c12")
+    (id "high_value" :label "High Value Case" :fill "#8e44ad")
+    (id "low_value" :label "Standard Case" :fill "#a569bd")
+
+    ; General branch
+    (id "general" :label "General Inquiry" :fill "#27ae60")
+    (id "account" :label "Account Related?" :shape "diamond" :fill "#f39c12")
+    (id "account_yes" :label "Account Support" :fill "#229954")
+    (id "account_no" :label "General Support" :fill "#52be80")
+
+    ; Resolution nodes
+    (id "escalate" :label "Escalate to L2" :shape "ellipse" :fill "#e74c3c" :color "#ffffff")
+    (id "resolve_tech" :label "Tech Support Team" :shape "ellipse" :fill "#3498db" :color "#ffffff")
+    (id "resolve_billing" :label "Billing Team" :shape "ellipse" :fill "#9b59b6" :color "#ffffff")
+    (id "resolve_general" :label "Support Team" :shape "ellipse" :fill "#27ae60" :color "#ffffff"))
+
+  (edges
+    ; Main flow
+    ("start" "type")
+
+    ; Technical branch
+    ("type" "technical" :label "technical" :style "bold")
+    ("technical" "severity")
+    ("severity" "critical" :label "high" :stroke "#e74c3c")
+    ("severity" "normal" :label "low" :stroke "#27ae60")
+    ("critical" "escalate")
+    ("normal" "resolve_tech")
+
+    ; Billing branch
+    ("type" "billing" :label "billing" :style "bold")
+    ("billing" "amount")
+    ("amount" "high_value" :label "yes" :stroke "#e74c3c")
+    ("amount" "low_value" :label "no" :stroke "#27ae60")
+    ("high_value" "escalate")
+    ("low_value" "resolve_billing")
+
+    ; General branch
+    ("type" "general" :label "general" :style "bold")
+    ("general" "account")
+    ("account" "account_yes" :label "yes")
+    ("account" "account_no" :label "no")
+    ("account_yes" "resolve_billing")
+    ("account_no" "resolve_general")))

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="220" height="1080" viewBox="0 0 220 1080">
+  <style>
+    .node {
+      fill: #ffffff;
+      stroke: #000000;
+      stroke-width: 1;
+      fill: #f0f8ff;
+    }
+    .edge {
+      fill: none;
+      stroke: #000000;
+      stroke-width: 1;
+      stroke: #4169e1;
+      stroke-width: 2;
+    }
+    .node-label {
+      font-family: Arial, sans-serif;
+      font-size: 12px;
+      text-anchor: middle;
+      dominant-baseline: middle;
+      fill: #000000;
+      pointer-events: none;
+    }
+    .edge-label {
+      font-family: Arial, sans-serif;
+      font-size: 10px;
+      text-anchor: middle;
+      dominant-baseline: middle;
+      fill: #000000;
+      pointer-events: none;
+    }
+  </style>
+
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" 
+            refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#000000"/>
+    </marker>
+  </defs>
+<g transform="translate(20, 1060) scale(1, -1)">
+  <path d="M 90.00 90.00 L 90.00 170.00" class="edge" marker-end="url(#arrowhead)"/>
+  <text x="90.00" y="-130.00" class="edge-label" transform="scale(1, -1)">solid</text>
+  <path d="M 90.00 350.00 L 90.00 430.00" class="edge" marker-end="url(#arrowhead)"/>
+  <text x="90.00" y="-390.00" class="edge-label" transform="scale(1, -1)">dashed</text>
+  <path d="M 90.00 610.00 L 90.00 690.00" class="edge" marker-end="url(#arrowhead)"/>
+  <text x="90.00" y="-650.00" class="edge-label" transform="scale(1, -1)">dotted</text>
+  <path d="M 90.00 870.00 L 90.00 950.00" class="edge" marker-end="url(#arrowhead)"/>
+  <text x="90.00" y="-910.00" class="edge-label" transform="scale(1, -1)">bold</text>
+  <path d="M 90.00 220.00 L 90.00 300.00" class="edge" marker-end="url(#arrowhead)"/>
+  <text x="90.00" y="-260.00" class="edge-label" transform="scale(1, -1)">red</text>
+  <path d="M 90.00 480.00 L 90.00 560.00" class="edge" marker-end="url(#arrowhead)"/>
+  <text x="90.00" y="-520.00" class="edge-label" transform="scale(1, -1)">green</text>
+  <path d="M 90.00 740.00 L 90.00 820.00" class="edge" marker-end="url(#arrowhead)"/>
+  <text x="90.00" y="-780.00" class="edge-label" transform="scale(1, -1)">thick</text>
+  <rect x="40.00" y="170.00" width="100.00" height="50.00" class="node rect"/>
+  <text x="90.00" y="-195.00" class="node-label" transform="scale(1, -1)">Custom Rectangle</text>
+  <ellipse cx="90.00" cy="325.00" rx="50.00" ry="25.00" class="node ellipse"/>
+  <text x="90.00" y="-325.00" class="node-label" transform="scale(1, -1)">Ellipse Node</text>
+  <ellipse cx="90.00" cy="455.00" rx="50.00" ry="25.00" class="node ellipse"/>
+  <text x="90.00" y="-455.00" class="node-label" transform="scale(1, -1)">Start/End</text>
+  <rect x="40.00" y="820.00" width="100.00" height="50.00" class="node rect"/>
+  <text x="90.00" y="-845.00" class="node-label" transform="scale(1, -1)">Custom Colors</text>
+  <rect x="40.00" y="40.00" width="100.00" height="50.00" class="node rect"/>
+  <text x="90.00" y="-65.00" class="node-label" transform="scale(1, -1)">Default Rectangle</text>
+  <polygon points="90.00,560.00 140.00,585.00 90.00,610.00 40.00,585.00" class="node diamond"/>
+  <text x="90.00" y="-585.00" class="node-label" transform="scale(1, -1)">Decision?</text>
+  <polygon points="90.00,690.00 140.00,715.00 90.00,740.00 40.00,715.00" class="node diamond"/>
+  <text x="90.00" y="-715.00" class="node-label" transform="scale(1, -1)">Valid?</text>
+  <ellipse cx="90.00" cy="975.00" rx="50.00" ry="25.00" class="node ellipse"/>
+  <text x="90.00" y="-975.00" class="node-label" transform="scale(1, -1)">Another Style</text>
+</g>
+</svg>

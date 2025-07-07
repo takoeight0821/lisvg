@@ -1,0 +1,46 @@
+; Shapes and styles demonstration
+; This example showcases all available shapes and styling options
+
+(diagram
+  (size 1000 800)
+
+  ; Default styles
+  (node-style :fill "#f0f8ff" :color "#000080")
+  (edge-style :stroke "#4169e1" :stroke-width "2")
+
+  ; Nodes demonstrating different shapes
+  (nodes
+    ; Rectangle shape (default)
+    (id "rect1" :label "Default Rectangle")
+    (id "rect2" :label "Custom Rectangle" :shape "rect" :fill "#ffb6c1")
+
+    ; Ellipse shape
+    (id "ellipse1" :label "Ellipse Node" :shape "ellipse" :fill "#98fb98")
+    (id "ellipse2" :label "Start/End" :shape "ellipse" :fill "#ffd700")
+
+    ; Diamond shape (for decisions)
+    (id "diamond1" :label "Decision?" :shape "diamond" :fill "#dda0dd")
+    (id "diamond2" :label "Valid?" :shape "diamond" :fill "#ff6347")
+
+    ; Custom styled nodes
+    (id "custom1" :label "Custom Colors" :shape "rect" :fill "#00ced1" :color "#ffffff")
+    (id "custom2" :label "Another Style" :shape "ellipse" :fill "#ff1493" :color "#ffffff"))
+
+  ; Edges demonstrating different styles
+  (edges
+    ; Solid line (default)
+    ("rect1" "rect2" :label "solid")
+
+    ; Dashed line
+    ("ellipse1" "ellipse2" :label "dashed" :style "dashed")
+
+    ; Dotted line
+    ("diamond1" "diamond2" :label "dotted" :style "dotted")
+
+    ; Bold line
+    ("custom1" "custom2" :label "bold" :style "bold")
+
+    ; Custom colored edges
+    ("rect2" "ellipse1" :label "red" :stroke "#ff0000")
+    ("ellipse2" "diamond1" :label "green" :stroke "#008000" :stroke-width "3")
+    ("diamond2" "custom1" :label "thick" :stroke "#000000" :stroke-width "4")))

@@ -1,0 +1,55 @@
+; Complex workflow diagram
+; This demonstrates a more realistic workflow with multiple paths and decisions
+
+(diagram
+  (size 1200 800)
+
+  ; Default styles for consistency
+  (node-style :shape "rect" :fill "#e6f3ff")
+  (edge-style :stroke "#333333" :stroke-width "2")
+
+  (nodes
+    ; Start node
+    (id "start" :label "New Order" :shape "ellipse" :fill "#90ee90")
+
+    ; Process nodes
+    (id "validate" :label "Validate Order" :shape "diamond" :fill "#ffd700")
+    (id "check_inventory" :label "Check Inventory")
+    (id "check_credit" :label "Check Credit")
+    (id "process_payment" :label "Process Payment")
+    (id "allocate_stock" :label "Allocate Stock")
+    (id "generate_invoice" :label "Generate Invoice")
+    (id "ship_order" :label "Ship Order")
+    (id "notify_customer" :label "Notify Customer")
+
+    ; Error handling nodes
+    (id "invalid_order" :label "Invalid Order" :fill "#ff6b6b")
+    (id "insufficient_stock" :label "Insufficient Stock" :fill "#ff6b6b")
+    (id "payment_failed" :label "Payment Failed" :fill "#ff6b6b")
+    (id "retry_payment" :label "Retry Payment?" :shape "diamond" :fill "#ffd700")
+
+    ; End nodes
+    (id "success" :label "Order Complete" :shape "ellipse" :fill "#90ee90")
+    (id "cancelled" :label "Order Cancelled" :shape "ellipse" :fill "#ff6b6b"))
+
+  (edges
+    ; Main flow
+    ("start" "validate")
+    ("validate" "check_inventory" :label "valid")
+    ("validate" "invalid_order" :label "invalid" :style "dashed")
+    ("check_inventory" "check_credit" :label "available")
+    ("check_inventory" "insufficient_stock" :label "unavailable" :style "dashed")
+    ("check_credit" "process_payment" :label "approved")
+    ("process_payment" "allocate_stock" :label "success")
+    ("process_payment" "payment_failed" :label "failed" :style "dashed")
+    ("allocate_stock" "generate_invoice")
+    ("generate_invoice" "ship_order")
+    ("ship_order" "notify_customer")
+    ("notify_customer" "success")
+
+    ; Error handling paths
+    ("invalid_order" "cancelled")
+    ("insufficient_stock" "cancelled")
+    ("payment_failed" "retry_payment")
+    ("retry_payment" "process_payment" :label "yes" :style "dotted")
+    ("retry_payment" "cancelled" :label "no" :style "dashed")))
