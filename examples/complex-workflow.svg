@@ -65,35 +65,35 @@
   <text x="630.00" y="-65.00" class="edge-label" transform="scale(1, -1)">yes</text>
   <path d="M 1170.00 40.00 L 1530.00 90.00" class="edge" marker-end="url(#arrowhead)"/>
   <text x="1350.00" y="-65.00" class="edge-label" transform="scale(1, -1)">no</text>
+  <rect x="220.00" y="40.00" width="100.00" height="50.00" class="node rect"/>
+  <text x="270.00" y="-65.00" class="node-label" transform="scale(1, -1)">Allocate Stock</text>
+  <ellipse cx="1530.00" cy="65.00" rx="50.00" ry="25.00" class="node ellipse"/>
+  <text x="1530.00" y="-65.00" class="node-label" transform="scale(1, -1)">Order Cancelled</text>
+  <rect x="670.00" y="170.00" width="100.00" height="50.00" class="node rect"/>
+  <text x="720.00" y="-195.00" class="node-label" transform="scale(1, -1)">Check Credit</text>
   <rect x="670.00" y="300.00" width="100.00" height="50.00" class="node rect"/>
   <text x="720.00" y="-325.00" class="node-label" transform="scale(1, -1)">Check Inventory</text>
+  <rect x="400.00" y="40.00" width="100.00" height="50.00" class="node rect"/>
+  <text x="450.00" y="-65.00" class="node-label" transform="scale(1, -1)">Generate Invoice</text>
+  <rect x="850.00" y="170.00" width="100.00" height="50.00" class="node rect"/>
+  <text x="900.00" y="-195.00" class="node-label" transform="scale(1, -1)">Insufficient Stock</text>
   <rect x="850.00" y="300.00" width="100.00" height="50.00" class="node rect"/>
   <text x="900.00" y="-325.00" class="node-label" transform="scale(1, -1)">Invalid Order</text>
   <rect x="760.00" y="40.00" width="100.00" height="50.00" class="node rect"/>
   <text x="810.00" y="-65.00" class="node-label" transform="scale(1, -1)">Notify Customer</text>
-  <rect x="40.00" y="40.00" width="100.00" height="50.00" class="node rect"/>
-  <text x="90.00" y="-65.00" class="node-label" transform="scale(1, -1)">Process Payment</text>
-  <rect x="220.00" y="40.00" width="100.00" height="50.00" class="node rect"/>
-  <text x="270.00" y="-65.00" class="node-label" transform="scale(1, -1)">Allocate Stock</text>
-  <rect x="580.00" y="40.00" width="100.00" height="50.00" class="node rect"/>
-  <text x="630.00" y="-65.00" class="node-label" transform="scale(1, -1)">Ship Order</text>
-  <polygon points="1170.00,40.00 1220.00,65.00 1170.00,90.00 1120.00,65.00" class="node diamond"/>
-  <text x="1170.00" y="-65.00" class="node-label" transform="scale(1, -1)">Retry Payment?</text>
-  <ellipse cx="1530.00" cy="65.00" rx="50.00" ry="25.00" class="node ellipse"/>
-  <text x="1530.00" y="-65.00" class="node-label" transform="scale(1, -1)">Order Cancelled</text>
-  <ellipse cx="810.00" cy="585.00" rx="50.00" ry="25.00" class="node ellipse"/>
-  <text x="810.00" y="-585.00" class="node-label" transform="scale(1, -1)">New Order</text>
-  <polygon points="810.00,430.00 860.00,455.00 810.00,480.00 760.00,455.00" class="node diamond"/>
-  <text x="810.00" y="-455.00" class="node-label" transform="scale(1, -1)">Validate Order</text>
-  <rect x="850.00" y="170.00" width="100.00" height="50.00" class="node rect"/>
-  <text x="900.00" y="-195.00" class="node-label" transform="scale(1, -1)">Insufficient Stock</text>
-  <rect x="400.00" y="40.00" width="100.00" height="50.00" class="node rect"/>
-  <text x="450.00" y="-65.00" class="node-label" transform="scale(1, -1)">Generate Invoice</text>
-  <ellipse cx="1350.00" cy="65.00" rx="50.00" ry="25.00" class="node ellipse"/>
-  <text x="1350.00" y="-65.00" class="node-label" transform="scale(1, -1)">Order Complete</text>
-  <rect x="670.00" y="170.00" width="100.00" height="50.00" class="node rect"/>
-  <text x="720.00" y="-195.00" class="node-label" transform="scale(1, -1)">Check Credit</text>
   <rect x="940.00" y="40.00" width="100.00" height="50.00" class="node rect"/>
   <text x="990.00" y="-65.00" class="node-label" transform="scale(1, -1)">Payment Failed</text>
+  <rect x="40.00" y="40.00" width="100.00" height="50.00" class="node rect"/>
+  <text x="90.00" y="-65.00" class="node-label" transform="scale(1, -1)">Process Payment</text>
+  <polygon points="1170.00,40.00 1220.00,65.00 1170.00,90.00 1120.00,65.00" class="node diamond"/>
+  <text x="1170.00" y="-65.00" class="node-label" transform="scale(1, -1)">Retry Payment?</text>
+  <rect x="580.00" y="40.00" width="100.00" height="50.00" class="node rect"/>
+  <text x="630.00" y="-65.00" class="node-label" transform="scale(1, -1)">Ship Order</text>
+  <ellipse cx="810.00" cy="585.00" rx="50.00" ry="25.00" class="node ellipse"/>
+  <text x="810.00" y="-585.00" class="node-label" transform="scale(1, -1)">New Order</text>
+  <ellipse cx="1350.00" cy="65.00" rx="50.00" ry="25.00" class="node ellipse"/>
+  <text x="1350.00" y="-65.00" class="node-label" transform="scale(1, -1)">Order Complete</text>
+  <polygon points="810.00,430.00 860.00,455.00 810.00,480.00 760.00,455.00" class="node diamond"/>
+  <text x="810.00" y="-455.00" class="node-label" transform="scale(1, -1)">Validate Order</text>
 </g>
 </svg>

@@ -67,41 +67,41 @@
   <text x="855.00" y="-260.00" class="edge-label" transform="scale(1, -1)">no</text>
   <path d="M 810.00 170.00 L 630.00 90.00" class="edge" marker-end="url(#arrowhead)"/>
   <path d="M 990.00 170.00 L 810.00 90.00" class="edge" marker-end="url(#arrowhead)"/>
-  <rect x="940.00" y="170.00" width="100.00" height="50.00" class="node rect"/>
-  <text x="990.00" y="-195.00" class="node-label" transform="scale(1, -1)">General Support</text>
-  <polygon points="360.00,300.00 410.00,325.00 360.00,350.00 310.00,325.00" class="node diamond"/>
-  <text x="360.00" y="-325.00" class="node-label" transform="scale(1, -1)">Severity?</text>
-  <rect x="40.00" y="170.00" width="100.00" height="50.00" class="node rect"/>
-  <text x="90.00" y="-195.00" class="node-label" transform="scale(1, -1)">Critical Issue</text>
-  <rect x="220.00" y="170.00" width="100.00" height="50.00" class="node rect"/>
-  <text x="270.00" y="-195.00" class="node-label" transform="scale(1, -1)">Normal Issue</text>
-  <rect x="580.00" y="170.00" width="100.00" height="50.00" class="node rect"/>
-  <text x="630.00" y="-195.00" class="node-label" transform="scale(1, -1)">Standard Case</text>
-  <ellipse cx="810.00" cy="65.00" rx="50.00" ry="25.00" class="node ellipse"/>
-  <text x="810.00" y="-65.00" class="node-label" transform="scale(1, -1)">Support Team</text>
-  <polygon points="540.00,560.00 590.00,585.00 540.00,610.00 490.00,585.00" class="node diamond"/>
-  <text x="540.00" y="-585.00" class="node-label" transform="scale(1, -1)">Request Type?</text>
-  <rect x="670.00" y="430.00" width="100.00" height="50.00" class="node rect"/>
-  <text x="720.00" y="-455.00" class="node-label" transform="scale(1, -1)">General Inquiry</text>
-  <polygon points="540.00,300.00 590.00,325.00 540.00,350.00 490.00,325.00" class="node diamond"/>
-  <text x="540.00" y="-325.00" class="node-label" transform="scale(1, -1)">Amount &gt; $100?</text>
-  <ellipse cx="540.00" cy="715.00" rx="50.00" ry="25.00" class="node ellipse"/>
-  <text x="540.00" y="-715.00" class="node-label" transform="scale(1, -1)">Customer Service Request</text>
-  <rect x="490.00" y="430.00" width="100.00" height="50.00" class="node rect"/>
-  <text x="540.00" y="-455.00" class="node-label" transform="scale(1, -1)">Billing Issue</text>
   <polygon points="720.00,300.00 770.00,325.00 720.00,350.00 670.00,325.00" class="node diamond"/>
   <text x="720.00" y="-325.00" class="node-label" transform="scale(1, -1)">Account Related?</text>
-  <rect x="400.00" y="170.00" width="100.00" height="50.00" class="node rect"/>
-  <text x="450.00" y="-195.00" class="node-label" transform="scale(1, -1)">High Value Case</text>
-  <ellipse cx="630.00" cy="65.00" rx="50.00" ry="25.00" class="node ellipse"/>
-  <text x="630.00" y="-65.00" class="node-label" transform="scale(1, -1)">Billing Team</text>
-  <rect x="310.00" y="430.00" width="100.00" height="50.00" class="node rect"/>
-  <text x="360.00" y="-455.00" class="node-label" transform="scale(1, -1)">Technical Issue</text>
+  <rect x="940.00" y="170.00" width="100.00" height="50.00" class="node rect"/>
+  <text x="990.00" y="-195.00" class="node-label" transform="scale(1, -1)">General Support</text>
   <rect x="760.00" y="170.00" width="100.00" height="50.00" class="node rect"/>
   <text x="810.00" y="-195.00" class="node-label" transform="scale(1, -1)">Account Support</text>
-  <ellipse cx="270.00" cy="65.00" rx="50.00" ry="25.00" class="node ellipse"/>
-  <text x="270.00" y="-65.00" class="node-label" transform="scale(1, -1)">Tech Support Team</text>
+  <polygon points="540.00,300.00 590.00,325.00 540.00,350.00 490.00,325.00" class="node diamond"/>
+  <text x="540.00" y="-325.00" class="node-label" transform="scale(1, -1)">Amount &gt; $100?</text>
+  <rect x="490.00" y="430.00" width="100.00" height="50.00" class="node rect"/>
+  <text x="540.00" y="-455.00" class="node-label" transform="scale(1, -1)">Billing Issue</text>
+  <rect x="40.00" y="170.00" width="100.00" height="50.00" class="node rect"/>
+  <text x="90.00" y="-195.00" class="node-label" transform="scale(1, -1)">Critical Issue</text>
   <ellipse cx="450.00" cy="65.00" rx="50.00" ry="25.00" class="node ellipse"/>
   <text x="450.00" y="-65.00" class="node-label" transform="scale(1, -1)">Escalate to L2</text>
+  <rect x="670.00" y="430.00" width="100.00" height="50.00" class="node rect"/>
+  <text x="720.00" y="-455.00" class="node-label" transform="scale(1, -1)">General Inquiry</text>
+  <rect x="400.00" y="170.00" width="100.00" height="50.00" class="node rect"/>
+  <text x="450.00" y="-195.00" class="node-label" transform="scale(1, -1)">High Value Case</text>
+  <rect x="580.00" y="170.00" width="100.00" height="50.00" class="node rect"/>
+  <text x="630.00" y="-195.00" class="node-label" transform="scale(1, -1)">Standard Case</text>
+  <rect x="220.00" y="170.00" width="100.00" height="50.00" class="node rect"/>
+  <text x="270.00" y="-195.00" class="node-label" transform="scale(1, -1)">Normal Issue</text>
+  <ellipse cx="630.00" cy="65.00" rx="50.00" ry="25.00" class="node ellipse"/>
+  <text x="630.00" y="-65.00" class="node-label" transform="scale(1, -1)">Billing Team</text>
+  <ellipse cx="810.00" cy="65.00" rx="50.00" ry="25.00" class="node ellipse"/>
+  <text x="810.00" y="-65.00" class="node-label" transform="scale(1, -1)">Support Team</text>
+  <ellipse cx="270.00" cy="65.00" rx="50.00" ry="25.00" class="node ellipse"/>
+  <text x="270.00" y="-65.00" class="node-label" transform="scale(1, -1)">Tech Support Team</text>
+  <polygon points="360.00,300.00 410.00,325.00 360.00,350.00 310.00,325.00" class="node diamond"/>
+  <text x="360.00" y="-325.00" class="node-label" transform="scale(1, -1)">Severity?</text>
+  <ellipse cx="540.00" cy="715.00" rx="50.00" ry="25.00" class="node ellipse"/>
+  <text x="540.00" y="-715.00" class="node-label" transform="scale(1, -1)">Customer Service Request</text>
+  <rect x="310.00" y="430.00" width="100.00" height="50.00" class="node rect"/>
+  <text x="360.00" y="-455.00" class="node-label" transform="scale(1, -1)">Technical Issue</text>
+  <polygon points="540.00,560.00 590.00,585.00 540.00,610.00 490.00,585.00" class="node diamond"/>
+  <text x="540.00" y="-585.00" class="node-label" transform="scale(1, -1)">Request Type?</text>
 </g>
 </svg>

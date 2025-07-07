@@ -43,15 +43,15 @@
   <text x="540.00" y="-65.00" class="edge-label" transform="scale(1, -1)">ready</text>
   <path d="M 680.00 65.00 L 760.00 65.00" class="edge" marker-end="url(#arrowhead)"/>
   <text x="720.00" y="-65.00" class="edge-label" transform="scale(1, -1)">done</text>
-  <rect x="400.00" y="40.00" width="100.00" height="50.00" class="node rect"/>
-  <text x="450.00" y="-65.00" class="node-label" transform="scale(1, -1)">Connect DB</text>
-  <rect x="580.00" y="40.00" width="100.00" height="50.00" class="node rect"/>
-  <text x="630.00" y="-65.00" class="node-label" transform="scale(1, -1)">Process</text>
   <rect x="760.00" y="40.00" width="100.00" height="50.00" class="node rect"/>
   <text x="810.00" y="-65.00" class="node-label" transform="scale(1, -1)">Cleanup</text>
-  <rect x="40.00" y="40.00" width="100.00" height="50.00" class="node rect"/>
-  <text x="90.00" y="-65.00" class="node-label" transform="scale(1, -1)">Initialize</text>
   <rect x="220.00" y="40.00" width="100.00" height="50.00" class="node rect"/>
   <text x="270.00" y="-65.00" class="node-label" transform="scale(1, -1)">Load Config</text>
+  <rect x="400.00" y="40.00" width="100.00" height="50.00" class="node rect"/>
+  <text x="450.00" y="-65.00" class="node-label" transform="scale(1, -1)">Connect DB</text>
+  <rect x="40.00" y="40.00" width="100.00" height="50.00" class="node rect"/>
+  <text x="90.00" y="-65.00" class="node-label" transform="scale(1, -1)">Initialize</text>
+  <rect x="580.00" y="40.00" width="100.00" height="50.00" class="node rect"/>
+  <text x="630.00" y="-65.00" class="node-label" transform="scale(1, -1)">Process</text>
 </g>
 </svg>
