@@ -39,61 +39,61 @@
     </marker>
   </defs>
 <g transform="translate(20, 670) scale(1, -1)">
-  <path d="M 810.00 90.00 L 810.00 170.00" class="edge" marker-end="url(#arrowhead)"/>
-  <path d="M 810.00 220.00 L 720.00 300.00" class="edge" marker-end="url(#arrowhead)"/>
-  <text x="765.00" y="-260.00" class="edge-label" transform="scale(1, -1)">valid</text>
-  <path d="M 810.00 220.00 L 900.00 300.00" class="edge" marker-end="url(#arrowhead)"/>
-  <text x="855.00" y="-260.00" class="edge-label" transform="scale(1, -1)">invalid</text>
-  <path d="M 720.00 350.00 L 720.00 430.00" class="edge" marker-end="url(#arrowhead)"/>
-  <text x="720.00" y="-390.00" class="edge-label" transform="scale(1, -1)">available</text>
-  <path d="M 720.00 350.00 L 900.00 430.00" class="edge" marker-end="url(#arrowhead)"/>
-  <text x="810.00" y="-390.00" class="edge-label" transform="scale(1, -1)">unavailable</text>
-  <path d="M 720.00 480.00 L 90.00 560.00" class="edge" marker-end="url(#arrowhead)"/>
-  <text x="405.00" y="-520.00" class="edge-label" transform="scale(1, -1)">approved</text>
-  <path d="M 90.00 610.00 L 270.00 560.00" class="edge" marker-end="url(#arrowhead)"/>
-  <text x="180.00" y="-585.00" class="edge-label" transform="scale(1, -1)">success</text>
-  <path d="M 90.00 610.00 L 990.00 560.00" class="edge" marker-end="url(#arrowhead)"/>
-  <text x="540.00" y="-585.00" class="edge-label" transform="scale(1, -1)">failed</text>
-  <path d="M 270.00 610.00 L 450.00 560.00" class="edge" marker-end="url(#arrowhead)"/>
-  <path d="M 450.00 610.00 L 630.00 560.00" class="edge" marker-end="url(#arrowhead)"/>
-  <path d="M 630.00 610.00 L 810.00 560.00" class="edge" marker-end="url(#arrowhead)"/>
-  <path d="M 810.00 610.00 L 1350.00 560.00" class="edge" marker-end="url(#arrowhead)"/>
-  <path d="M 900.00 350.00 L 1530.00 560.00" class="edge" marker-end="url(#arrowhead)"/>
-  <path d="M 900.00 480.00 L 1530.00 560.00" class="edge" marker-end="url(#arrowhead)"/>
-  <path d="M 990.00 610.00 L 1170.00 560.00" class="edge" marker-end="url(#arrowhead)"/>
-  <path d="M 1170.00 610.00 L 90.00 560.00" class="edge" marker-end="url(#arrowhead)"/>
-  <text x="630.00" y="-585.00" class="edge-label" transform="scale(1, -1)">yes</text>
-  <path d="M 1170.00 610.00 L 1530.00 560.00" class="edge" marker-end="url(#arrowhead)"/>
-  <text x="1350.00" y="-585.00" class="edge-label" transform="scale(1, -1)">no</text>
-  <rect x="400.00" y="560.00" width="100.00" height="50.00" class="node rect"/>
-  <text x="450.00" y="-585.00" class="node-label" transform="scale(1, -1)">Generate Invoice</text>
-  <rect x="940.00" y="560.00" width="100.00" height="50.00" class="node rect"/>
-  <text x="990.00" y="-585.00" class="node-label" transform="scale(1, -1)">Payment Failed</text>
-  <polygon points="810.00,170.00 860.00,195.00 810.00,220.00 760.00,195.00" class="node diamond"/>
-  <text x="810.00" y="-195.00" class="node-label" transform="scale(1, -1)">Validate Order</text>
-  <ellipse cx="1350.00" cy="585.00" rx="50.00" ry="25.00" class="node ellipse"/>
-  <text x="1350.00" y="-585.00" class="node-label" transform="scale(1, -1)">Order Complete</text>
-  <ellipse cx="1530.00" cy="585.00" rx="50.00" ry="25.00" class="node ellipse"/>
-  <text x="1530.00" y="-585.00" class="node-label" transform="scale(1, -1)">Order Cancelled</text>
-  <rect x="40.00" y="560.00" width="100.00" height="50.00" class="node rect"/>
-  <text x="90.00" y="-585.00" class="node-label" transform="scale(1, -1)">Process Payment</text>
-  <rect x="220.00" y="560.00" width="100.00" height="50.00" class="node rect"/>
-  <text x="270.00" y="-585.00" class="node-label" transform="scale(1, -1)">Allocate Stock</text>
-  <polygon points="1170.00,560.00 1220.00,585.00 1170.00,610.00 1120.00,585.00" class="node diamond"/>
-  <text x="1170.00" y="-585.00" class="node-label" transform="scale(1, -1)">Retry Payment?</text>
-  <ellipse cx="810.00" cy="65.00" rx="50.00" ry="25.00" class="node ellipse"/>
-  <text x="810.00" y="-65.00" class="node-label" transform="scale(1, -1)">New Order</text>
-  <rect x="850.00" y="300.00" width="100.00" height="50.00" class="node rect"/>
-  <text x="900.00" y="-325.00" class="node-label" transform="scale(1, -1)">Invalid Order</text>
-  <rect x="850.00" y="430.00" width="100.00" height="50.00" class="node rect"/>
-  <text x="900.00" y="-455.00" class="node-label" transform="scale(1, -1)">Insufficient Stock</text>
-  <rect x="580.00" y="560.00" width="100.00" height="50.00" class="node rect"/>
-  <text x="630.00" y="-585.00" class="node-label" transform="scale(1, -1)">Ship Order</text>
-  <rect x="760.00" y="560.00" width="100.00" height="50.00" class="node rect"/>
-  <text x="810.00" y="-585.00" class="node-label" transform="scale(1, -1)">Notify Customer</text>
+  <path d="M 810.00 560.00 L 810.00 480.00" class="edge" marker-end="url(#arrowhead)"/>
+  <path d="M 810.00 430.00 L 720.00 350.00" class="edge" marker-end="url(#arrowhead)"/>
+  <text x="765.00" y="-390.00" class="edge-label" transform="scale(1, -1)">valid</text>
+  <path d="M 810.00 430.00 L 900.00 350.00" class="edge" marker-end="url(#arrowhead)"/>
+  <text x="855.00" y="-390.00" class="edge-label" transform="scale(1, -1)">invalid</text>
+  <path d="M 720.00 300.00 L 720.00 220.00" class="edge" marker-end="url(#arrowhead)"/>
+  <text x="720.00" y="-260.00" class="edge-label" transform="scale(1, -1)">available</text>
+  <path d="M 720.00 300.00 L 900.00 220.00" class="edge" marker-end="url(#arrowhead)"/>
+  <text x="810.00" y="-260.00" class="edge-label" transform="scale(1, -1)">unavailable</text>
+  <path d="M 720.00 170.00 L 90.00 90.00" class="edge" marker-end="url(#arrowhead)"/>
+  <text x="405.00" y="-130.00" class="edge-label" transform="scale(1, -1)">approved</text>
+  <path d="M 90.00 40.00 L 270.00 90.00" class="edge" marker-end="url(#arrowhead)"/>
+  <text x="180.00" y="-65.00" class="edge-label" transform="scale(1, -1)">success</text>
+  <path d="M 90.00 40.00 L 990.00 90.00" class="edge" marker-end="url(#arrowhead)"/>
+  <text x="540.00" y="-65.00" class="edge-label" transform="scale(1, -1)">failed</text>
+  <path d="M 270.00 40.00 L 450.00 90.00" class="edge" marker-end="url(#arrowhead)"/>
+  <path d="M 450.00 40.00 L 630.00 90.00" class="edge" marker-end="url(#arrowhead)"/>
+  <path d="M 630.00 40.00 L 810.00 90.00" class="edge" marker-end="url(#arrowhead)"/>
+  <path d="M 810.00 40.00 L 1350.00 90.00" class="edge" marker-end="url(#arrowhead)"/>
+  <path d="M 900.00 300.00 L 1530.00 90.00" class="edge" marker-end="url(#arrowhead)"/>
+  <path d="M 900.00 170.00 L 1530.00 90.00" class="edge" marker-end="url(#arrowhead)"/>
+  <path d="M 990.00 40.00 L 1170.00 90.00" class="edge" marker-end="url(#arrowhead)"/>
+  <path d="M 1170.00 40.00 L 90.00 90.00" class="edge" marker-end="url(#arrowhead)"/>
+  <text x="630.00" y="-65.00" class="edge-label" transform="scale(1, -1)">yes</text>
+  <path d="M 1170.00 40.00 L 1530.00 90.00" class="edge" marker-end="url(#arrowhead)"/>
+  <text x="1350.00" y="-65.00" class="edge-label" transform="scale(1, -1)">no</text>
   <rect x="670.00" y="300.00" width="100.00" height="50.00" class="node rect"/>
   <text x="720.00" y="-325.00" class="node-label" transform="scale(1, -1)">Check Inventory</text>
-  <rect x="670.00" y="430.00" width="100.00" height="50.00" class="node rect"/>
-  <text x="720.00" y="-455.00" class="node-label" transform="scale(1, -1)">Check Credit</text>
+  <rect x="850.00" y="300.00" width="100.00" height="50.00" class="node rect"/>
+  <text x="900.00" y="-325.00" class="node-label" transform="scale(1, -1)">Invalid Order</text>
+  <rect x="760.00" y="40.00" width="100.00" height="50.00" class="node rect"/>
+  <text x="810.00" y="-65.00" class="node-label" transform="scale(1, -1)">Notify Customer</text>
+  <rect x="40.00" y="40.00" width="100.00" height="50.00" class="node rect"/>
+  <text x="90.00" y="-65.00" class="node-label" transform="scale(1, -1)">Process Payment</text>
+  <rect x="220.00" y="40.00" width="100.00" height="50.00" class="node rect"/>
+  <text x="270.00" y="-65.00" class="node-label" transform="scale(1, -1)">Allocate Stock</text>
+  <rect x="580.00" y="40.00" width="100.00" height="50.00" class="node rect"/>
+  <text x="630.00" y="-65.00" class="node-label" transform="scale(1, -1)">Ship Order</text>
+  <polygon points="1170.00,40.00 1220.00,65.00 1170.00,90.00 1120.00,65.00" class="node diamond"/>
+  <text x="1170.00" y="-65.00" class="node-label" transform="scale(1, -1)">Retry Payment?</text>
+  <ellipse cx="1530.00" cy="65.00" rx="50.00" ry="25.00" class="node ellipse"/>
+  <text x="1530.00" y="-65.00" class="node-label" transform="scale(1, -1)">Order Cancelled</text>
+  <ellipse cx="810.00" cy="585.00" rx="50.00" ry="25.00" class="node ellipse"/>
+  <text x="810.00" y="-585.00" class="node-label" transform="scale(1, -1)">New Order</text>
+  <polygon points="810.00,430.00 860.00,455.00 810.00,480.00 760.00,455.00" class="node diamond"/>
+  <text x="810.00" y="-455.00" class="node-label" transform="scale(1, -1)">Validate Order</text>
+  <rect x="850.00" y="170.00" width="100.00" height="50.00" class="node rect"/>
+  <text x="900.00" y="-195.00" class="node-label" transform="scale(1, -1)">Insufficient Stock</text>
+  <rect x="400.00" y="40.00" width="100.00" height="50.00" class="node rect"/>
+  <text x="450.00" y="-65.00" class="node-label" transform="scale(1, -1)">Generate Invoice</text>
+  <ellipse cx="1350.00" cy="65.00" rx="50.00" ry="25.00" class="node ellipse"/>
+  <text x="1350.00" y="-65.00" class="node-label" transform="scale(1, -1)">Order Complete</text>
+  <rect x="670.00" y="170.00" width="100.00" height="50.00" class="node rect"/>
+  <text x="720.00" y="-195.00" class="node-label" transform="scale(1, -1)">Check Credit</text>
+  <rect x="940.00" y="40.00" width="100.00" height="50.00" class="node rect"/>
+  <text x="990.00" y="-65.00" class="node-label" transform="scale(1, -1)">Payment Failed</text>
 </g>
 </svg>
