@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"sort"
 	"strings"
 )
 
@@ -43,8 +44,15 @@ func (s *SVGGenerator) Generate(layout *Layout, diagram *Diagram) string {
 		sb.WriteString(s.generateEdge(edge))
 	}
 
-	// Generate nodes
-	for _, node := range layout.Nodes {
+	// Generate nodes in deterministic order
+	var nodeIDs []string
+	for id := range layout.Nodes {
+		nodeIDs = append(nodeIDs, id)
+	}
+	sort.Strings(nodeIDs)
+	
+	for _, id := range nodeIDs {
+		node := layout.Nodes[id]
 		sb.WriteString(s.generateNode(node))
 	}
 
@@ -248,8 +256,15 @@ func (s *SVGGenerator) GenerateWithCustomStyles(layout *Layout, diagram *Diagram
 		sb.WriteString(s.generateEdge(edge))
 	}
 
-	// Generate nodes
-	for _, node := range layout.Nodes {
+	// Generate nodes in deterministic order
+	var nodeIDs []string
+	for id := range layout.Nodes {
+		nodeIDs = append(nodeIDs, id)
+	}
+	sort.Strings(nodeIDs)
+	
+	for _, id := range nodeIDs {
+		node := layout.Nodes[id]
 		sb.WriteString(s.generateNode(node))
 	}
 
@@ -272,8 +287,15 @@ func (s *SVGGenerator) generateCustomCSS(diagram *Diagram) string {
 	sb.WriteString("      stroke: #000000;\n")
 	sb.WriteString("      stroke-width: 1;\n")
 
-	// Apply custom node styles
-	for key, value := range diagram.NodeStyle {
+	// Apply custom node styles in deterministic order
+	var nodeStyleKeys []string
+	for key := range diagram.NodeStyle {
+		nodeStyleKeys = append(nodeStyleKeys, key)
+	}
+	sort.Strings(nodeStyleKeys)
+	
+	for _, key := range nodeStyleKeys {
+		value := diagram.NodeStyle[key]
 		switch key {
 		case "fill", "stroke", "stroke-width":
 			sb.WriteString(fmt.Sprintf("      %s: %s;\n", key, value))
@@ -287,8 +309,15 @@ func (s *SVGGenerator) generateCustomCSS(diagram *Diagram) string {
 	sb.WriteString("      stroke: #000000;\n")
 	sb.WriteString("      stroke-width: 1;\n")
 
-	// Apply custom edge styles
-	for key, value := range diagram.EdgeStyle {
+	// Apply custom edge styles in deterministic order
+	var edgeStyleKeys []string
+	for key := range diagram.EdgeStyle {
+		edgeStyleKeys = append(edgeStyleKeys, key)
+	}
+	sort.Strings(edgeStyleKeys)
+	
+	for _, key := range edgeStyleKeys {
+		value := diagram.EdgeStyle[key]
 		switch key {
 		case "stroke", "stroke-width", "stroke-dasharray":
 			sb.WriteString(fmt.Sprintf("      %s: %s;\n", key, value))
