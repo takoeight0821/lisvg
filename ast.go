@@ -7,12 +7,13 @@ import (
 
 // Diagram represents the root AST node
 type Diagram struct {
-	Width     int
-	Height    int
-	NodeStyle map[string]string
-	EdgeStyle map[string]string
-	Nodes     []Node
-	Edges     []Edge
+	Width           int
+	Height          int
+	LayoutDirection string
+	NodeStyle       map[string]string
+	EdgeStyle       map[string]string
+	Nodes           []Node
+	Edges           []Edge
 }
 
 // Node represents a diagram node
@@ -168,12 +169,13 @@ func (p *Parser) ParseDiagram() (*Diagram, error) {
 	p.nextToken()
 
 	diagram := &Diagram{
-		Width:     800,
-		Height:    400,
-		NodeStyle: make(map[string]string),
-		EdgeStyle: make(map[string]string),
-		Nodes:     []Node{},
-		Edges:     []Edge{},
+		Width:           800,
+		Height:          400,
+		LayoutDirection: "top-to-bottom",
+		NodeStyle:       make(map[string]string),
+		EdgeStyle:       make(map[string]string),
+		Nodes:           []Node{},
+		Edges:           []Edge{},
 	}
 
 	for p.cur.Type != TokenRParen && p.cur.Type != TokenEOF {
@@ -185,6 +187,10 @@ func (p *Parser) ParseDiagram() (*Diagram, error) {
 		switch p.cur.Value {
 		case "size":
 			if err := p.parseSize(diagram); err != nil {
+				return nil, err
+			}
+		case "layout-direction":
+			if err := p.parseLayoutDirection(diagram); err != nil {
 				return nil, err
 			}
 		case "node-style":
@@ -236,6 +242,31 @@ func (p *Parser) parseSize(diagram *Diagram) error {
 		return fmt.Errorf("invalid height: %s", p.cur.Value)
 	}
 	diagram.Height = height
+	p.nextToken()
+
+	if p.cur.Type != TokenRParen {
+		return fmt.Errorf("expected ')', got %s", p.cur.Value)
+	}
+	p.nextToken()
+	return nil
+}
+
+func (p *Parser) parseLayoutDirection(diagram *Diagram) error {
+	p.nextToken() // consume 'layout-direction'
+
+	if p.cur.Type != TokenString && p.cur.Type != TokenAtom {
+		return fmt.Errorf("expected layout direction, got %s", p.cur.Value)
+	}
+	
+	direction := p.cur.Value
+	// Validate direction
+	switch direction {
+	case "top-to-bottom", "bottom-to-top", "left-to-right", "right-to-left":
+		diagram.LayoutDirection = direction
+	default:
+		return fmt.Errorf("invalid layout direction: %s", direction)
+	}
+	
 	p.nextToken()
 
 	if p.cur.Type != TokenRParen {

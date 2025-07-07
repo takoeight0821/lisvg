@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="940" height="170" viewBox="0 0 940 170">
+  <style>
+    .node {
+      fill: #ffffff;
+      stroke: #000000;
+      stroke-width: 1;
+    }
+    .edge {
+      fill: none;
+      stroke: #000000;
+      stroke-width: 1;
+    }
+    .node-label {
+      font-family: Arial, sans-serif;
+      font-size: 12px;
+      text-anchor: middle;
+      dominant-baseline: middle;
+      fill: #000000;
+      pointer-events: none;
+    }
+    .edge-label {
+      font-family: Arial, sans-serif;
+      font-size: 10px;
+      text-anchor: middle;
+      dominant-baseline: middle;
+      fill: #000000;
+      pointer-events: none;
+    }
+  </style>
+
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" 
+            refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#000000"/>
+    </marker>
+  </defs>
+<g transform="translate(20, 150) scale(1, -1)">
+  <path d="M 140.00 65.00 L 220.00 65.00" class="edge" marker-end="url(#arrowhead)"/>
+  <path d="M 320.00 65.00 L 400.00 65.00" class="edge" marker-end="url(#arrowhead)"/>
+  <text x="360.00" y="-65.00" class="edge-label" transform="scale(1, -1)">setup</text>
+  <path d="M 500.00 65.00 L 580.00 65.00" class="edge" marker-end="url(#arrowhead)"/>
+  <text x="540.00" y="-65.00" class="edge-label" transform="scale(1, -1)">ready</text>
+  <path d="M 680.00 65.00 L 760.00 65.00" class="edge" marker-end="url(#arrowhead)"/>
+  <text x="720.00" y="-65.00" class="edge-label" transform="scale(1, -1)">done</text>
+  <rect x="400.00" y="40.00" width="100.00" height="50.00" class="node rect"/>
+  <text x="450.00" y="-65.00" class="node-label" transform="scale(1, -1)">Connect DB</text>
+  <rect x="580.00" y="40.00" width="100.00" height="50.00" class="node rect"/>
+  <text x="630.00" y="-65.00" class="node-label" transform="scale(1, -1)">Process</text>
+  <rect x="760.00" y="40.00" width="100.00" height="50.00" class="node rect"/>
+  <text x="810.00" y="-65.00" class="node-label" transform="scale(1, -1)">Cleanup</text>
+  <rect x="40.00" y="40.00" width="100.00" height="50.00" class="node rect"/>
+  <text x="90.00" y="-65.00" class="node-label" transform="scale(1, -1)">Initialize</text>
+  <rect x="220.00" y="40.00" width="100.00" height="50.00" class="node rect"/>
+  <text x="270.00" y="-65.00" class="node-label" transform="scale(1, -1)">Load Config</text>
+</g>
+</svg>

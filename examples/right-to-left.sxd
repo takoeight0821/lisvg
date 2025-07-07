@@ -1,0 +1,22 @@
+; Right-to-left layout example
+; This demonstrates a reverse horizontal flow
+
+(diagram
+  (size 800 400)
+  (layout-direction "right-to-left")
+
+  ; Define nodes with shapes
+  (nodes
+    (id "start" :label "Start" :shape "ellipse")
+    (id "branch2" :label "Branch B" :shape "rect")
+    (id "branch1" :label "Branch A" :shape "rect")
+    (id "combine" :label "Combine" :shape "diamond")
+    (id "end" :label "End Result" :shape "ellipse"))
+
+  ; Define edges
+  (edges
+    ("start" "branch1")
+    ("start" "branch2")
+    ("branch1" "combine" :label "path A")
+    ("branch2" "combine" :label "path B")
+    ("combine" "end")))

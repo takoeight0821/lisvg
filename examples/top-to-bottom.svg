@@ -37,24 +37,26 @@
   </defs>
 <g transform="translate(20, 800) scale(1, -1)">
   <path d="M 90.00 90.00 L 90.00 170.00" class="edge" marker-end="url(#arrowhead)"/>
+  <text x="90.00" y="-130.00" class="edge-label" transform="scale(1, -1)">requirements</text>
   <path d="M 90.00 220.00 L 90.00 300.00" class="edge" marker-end="url(#arrowhead)"/>
-  <text x="90.00" y="-260.00" class="edge-label" transform="scale(1, -1)">data</text>
+  <text x="90.00" y="-260.00" class="edge-label" transform="scale(1, -1)">specs</text>
   <path d="M 90.00 350.00 L 90.00 430.00" class="edge" marker-end="url(#arrowhead)"/>
-  <text x="90.00" y="-390.00" class="edge-label" transform="scale(1, -1)">valid</text>
+  <text x="90.00" y="-390.00" class="edge-label" transform="scale(1, -1)">build</text>
   <path d="M 90.00 480.00 L 90.00 560.00" class="edge" marker-end="url(#arrowhead)"/>
+  <text x="90.00" y="-520.00" class="edge-label" transform="scale(1, -1)">pass</text>
   <path d="M 90.00 610.00 L 90.00 690.00" class="edge" marker-end="url(#arrowhead)"/>
-  <text x="90.00" y="-650.00" class="edge-label" transform="scale(1, -1)">complete</text>
-  <rect x="40.00" y="40.00" width="100.00" height="50.00" class="node rect"/>
-  <text x="90.00" y="-65.00" class="node-label" transform="scale(1, -1)">Start</text>
+  <text x="90.00" y="-650.00" class="edge-label" transform="scale(1, -1)">live</text>
   <rect x="40.00" y="170.00" width="100.00" height="50.00" class="node rect"/>
-  <text x="90.00" y="-195.00" class="node-label" transform="scale(1, -1)">Get User Input</text>
+  <text x="90.00" y="-195.00" class="node-label" transform="scale(1, -1)">Design System</text>
   <rect x="40.00" y="300.00" width="100.00" height="50.00" class="node rect"/>
-  <text x="90.00" y="-325.00" class="node-label" transform="scale(1, -1)">Validate Input</text>
-  <rect x="40.00" y="430.00" width="100.00" height="50.00" class="node rect"/>
-  <text x="90.00" y="-455.00" class="node-label" transform="scale(1, -1)">Process Data</text>
+  <text x="90.00" y="-325.00" class="node-label" transform="scale(1, -1)">Implement</text>
+  <polygon points="90.00,430.00 140.00,455.00 90.00,480.00 40.00,455.00" class="node diamond"/>
+  <text x="90.00" y="-455.00" class="node-label" transform="scale(1, -1)">Test &amp; QA</text>
   <rect x="40.00" y="560.00" width="100.00" height="50.00" class="node rect"/>
-  <text x="90.00" y="-585.00" class="node-label" transform="scale(1, -1)">Display Result</text>
-  <rect x="40.00" y="690.00" width="100.00" height="50.00" class="node rect"/>
-  <text x="90.00" y="-715.00" class="node-label" transform="scale(1, -1)">End</text>
+  <text x="90.00" y="-585.00" class="node-label" transform="scale(1, -1)">Deploy</text>
+  <ellipse cx="90.00" cy="715.00" rx="50.00" ry="25.00" class="node ellipse"/>
+  <text x="90.00" y="-715.00" class="node-label" transform="scale(1, -1)">Monitor</text>
+  <ellipse cx="90.00" cy="65.00" rx="50.00" ry="25.00" class="node ellipse"/>
+  <text x="90.00" y="-65.00" class="node-label" transform="scale(1, -1)">Plan Project</text>
 </g>
 </svg>

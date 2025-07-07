@@ -1,0 +1,21 @@
+; Bottom-to-top layout example
+; This demonstrates an upward data flow
+
+(diagram
+  (size 600 800)
+  (layout-direction "bottom-to-top")
+
+  ; Define nodes
+  (nodes
+    (id "data" :label "Raw Data")
+    (id "clean" :label "Clean Data")
+    (id "transform" :label "Transform")
+    (id "analyze" :label "Analyze")
+    (id "report" :label "Generate Report"))
+
+  ; Define edges
+  (edges
+    ("data" "clean" :label "raw")
+    ("clean" "transform" :label "cleaned")
+    ("transform" "analyze" :label "structured")
+    ("analyze" "report" :label "insights")))

@@ -41,20 +41,32 @@ type Layout struct {
 	Edges  []LayoutEdge
 }
 
+// LayoutDirection represents the direction of the layout
+type LayoutDirection string
+
+const (
+	DirectionTopToBottom LayoutDirection = "top-to-bottom"
+	DirectionBottomToTop LayoutDirection = "bottom-to-top"
+	DirectionLeftToRight LayoutDirection = "left-to-right"
+	DirectionRightToLeft LayoutDirection = "right-to-left"
+)
+
 // SimpleLayouter implements a basic tree layout algorithm
 type SimpleLayouter struct {
-	NodeWidth    float64
-	NodeHeight   float64
+	NodeWidth     float64
+	NodeHeight    float64
 	HorizontalGap float64
 	VerticalGap   float64
+	Direction     LayoutDirection
 }
 
 func NewSimpleLayouter() *SimpleLayouter {
 	return &SimpleLayouter{
-		NodeWidth:    100.0,
-		NodeHeight:   50.0,
+		NodeWidth:     100.0,
+		NodeHeight:    50.0,
 		HorizontalGap: 80.0,
 		VerticalGap:   80.0,
+		Direction:     DirectionTopToBottom,
 	}
 }
 
@@ -67,6 +79,11 @@ func (l *SimpleLayouter) LayoutDiagram(diagram *Diagram) (*Layout, error) {
 			Nodes:  make(map[string]LayoutNode),
 			Edges:  []LayoutEdge{},
 		}, nil
+	}
+
+	// Set layout direction from diagram
+	if diagram.LayoutDirection != "" {
+		l.Direction = LayoutDirection(diagram.LayoutDirection)
 	}
 
 	// Build dependency graph
@@ -188,16 +205,65 @@ func (l *SimpleLayouter) positionNodes(levels [][]string, diagram *Diagram) *Lay
 		nodeMap[node.ID] = node
 	}
 	
+	// Note: We don't reverse levels here because positioning logic will handle direction
+	
+	// Calculate total layout dimensions first
+	maxLevels := len(levels)
+	maxNodesInLevel := 0
+	for _, level := range levels {
+		if len(level) > maxNodesInLevel {
+			maxNodesInLevel = len(level)
+		}
+	}
+	
 	// Position nodes level by level
 	for levelIndex, level := range levels {
-		y := float64(levelIndex) * (l.NodeHeight + l.VerticalGap) + l.NodeHeight/2
+		var x, y float64
+		var startPos float64
 		
-		// Center nodes horizontally in each level
-		totalWidth := float64(len(level))*l.NodeWidth + float64(len(level)-1)*l.HorizontalGap
-		startX := -totalWidth/2 + l.NodeWidth/2
+		switch l.Direction {
+		case DirectionTopToBottom:
+			// Standard top-to-bottom: level 0 at top
+			y = float64(levelIndex) * (l.NodeHeight + l.VerticalGap) + l.NodeHeight/2
+			
+			// Center nodes horizontally in each level
+			totalWidth := float64(len(level))*l.NodeWidth + float64(len(level)-1)*l.HorizontalGap
+			startPos = -totalWidth/2 + l.NodeWidth/2
+			
+		case DirectionBottomToTop:
+			// Bottom-to-top: level 0 at bottom, higher levels go up
+			totalHeight := float64(maxLevels-1) * (l.NodeHeight + l.VerticalGap)
+			y = totalHeight - float64(levelIndex)*(l.NodeHeight+l.VerticalGap) + l.NodeHeight/2
+			
+			// Center nodes horizontally in each level
+			totalWidth := float64(len(level))*l.NodeWidth + float64(len(level)-1)*l.HorizontalGap
+			startPos = -totalWidth/2 + l.NodeWidth/2
+			
+		case DirectionLeftToRight:
+			// Standard left-to-right: level 0 at left
+			x = float64(levelIndex) * (l.NodeWidth + l.HorizontalGap) + l.NodeWidth/2
+			
+			// Center nodes vertically in each level
+			totalHeight := float64(len(level))*l.NodeHeight + float64(len(level)-1)*l.VerticalGap
+			startPos = -totalHeight/2 + l.NodeHeight/2
+			
+		case DirectionRightToLeft:
+			// Right-to-left: level 0 at right, higher levels go left
+			totalWidth := float64(maxLevels-1) * (l.NodeWidth + l.HorizontalGap)
+			x = totalWidth - float64(levelIndex)*(l.NodeWidth+l.HorizontalGap) + l.NodeWidth/2
+			
+			// Center nodes vertically in each level
+			totalHeight := float64(len(level))*l.NodeHeight + float64(len(level)-1)*l.VerticalGap
+			startPos = -totalHeight/2 + l.NodeHeight/2
+		}
 		
 		for nodeIndex, nodeID := range level {
-			x := startX + float64(nodeIndex)*(l.NodeWidth+l.HorizontalGap)
+			switch l.Direction {
+			case DirectionTopToBottom, DirectionBottomToTop:
+				x = startPos + float64(nodeIndex)*(l.NodeWidth+l.HorizontalGap)
+			case DirectionLeftToRight, DirectionRightToLeft:
+				y = startPos + float64(nodeIndex)*(l.NodeHeight+l.VerticalGap)
+			}
 			
 			// Get original node for attributes
 			originalNode := nodeMap[nodeID]
@@ -243,10 +309,34 @@ func (l *SimpleLayouter) addEdges(layout *Layout, diagram *Diagram) {
 			continue // Skip edges to non-existent nodes
 		}
 		
-		// Calculate edge points (simple straight line)
-		points := []Point{
-			{X: fromNode.X, Y: fromNode.Y + fromNode.Height/2},
-			{X: toNode.X, Y: toNode.Y - toNode.Height/2},
+		// Calculate edge points based on direction
+		var points []Point
+		
+		switch l.Direction {
+		case DirectionTopToBottom:
+			// From bottom of source to top of target
+			points = []Point{
+				{X: fromNode.X, Y: fromNode.Y + fromNode.Height/2},
+				{X: toNode.X, Y: toNode.Y - toNode.Height/2},
+			}
+		case DirectionBottomToTop:
+			// From top of source to bottom of target
+			points = []Point{
+				{X: fromNode.X, Y: fromNode.Y - fromNode.Height/2},
+				{X: toNode.X, Y: toNode.Y + toNode.Height/2},
+			}
+		case DirectionLeftToRight:
+			// From right of source to left of target
+			points = []Point{
+				{X: fromNode.X + fromNode.Width/2, Y: fromNode.Y},
+				{X: toNode.X - toNode.Width/2, Y: toNode.Y},
+			}
+		case DirectionRightToLeft:
+			// From left of source to right of target
+			points = []Point{
+				{X: fromNode.X - fromNode.Width/2, Y: fromNode.Y},
+				{X: toNode.X + toNode.Width/2, Y: toNode.Y},
+			}
 		}
 		
 		// Calculate label position (midpoint)

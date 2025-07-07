@@ -1,0 +1,23 @@
+; Top-to-bottom layout example
+; This demonstrates the standard downward flow (default)
+
+(diagram
+  (size 600 800)
+  (layout-direction "top-to-bottom")
+
+  ; Define nodes with different shapes
+  (nodes
+    (id "plan" :label "Plan Project" :shape "ellipse")
+    (id "design" :label "Design System" :shape "rect")
+    (id "implement" :label "Implement" :shape "rect")
+    (id "test" :label "Test & QA" :shape "diamond")
+    (id "deploy" :label "Deploy" :shape "rect")
+    (id "monitor" :label "Monitor" :shape "ellipse"))
+
+  ; Define edges with labels
+  (edges
+    ("plan" "design" :label "requirements")
+    ("design" "implement" :label "specs")
+    ("implement" "test" :label "build")
+    ("test" "deploy" :label "pass")
+    ("deploy" "monitor" :label "live")))

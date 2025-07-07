@@ -1,0 +1,21 @@
+; Left-to-right layout example
+; This demonstrates a horizontal process flow
+
+(diagram
+  (size 800 400)
+  (layout-direction "left-to-right")
+
+  ; Define nodes
+  (nodes
+    (id "init" :label "Initialize")
+    (id "config" :label "Load Config")
+    (id "connect" :label "Connect DB")
+    (id "process" :label "Process")
+    (id "cleanup" :label "Cleanup"))
+
+  ; Define edges
+  (edges
+    ("init" "config")
+    ("config" "connect" :label "setup")
+    ("connect" "process" :label "ready")
+    ("process" "cleanup" :label "done")))

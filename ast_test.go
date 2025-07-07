@@ -171,10 +171,11 @@ func TestParser(t *testing.T) {
 				(edges
 					("A" "B")))`,
 			expected: &Diagram{
-				Width:     800,
-				Height:    400,
-				NodeStyle: map[string]string{},
-				EdgeStyle: map[string]string{},
+				Width:           800,
+				Height:          400,
+				LayoutDirection: "top-to-bottom",
+				NodeStyle:       map[string]string{},
+				EdgeStyle:       map[string]string{},
 				Nodes: []Node{
 					{ID: "A", Label: "Node A", Attributes: map[string]string{}},
 				},
@@ -192,8 +193,9 @@ func TestParser(t *testing.T) {
 				(nodes
 					(id "X" :label "Test")))`,
 			expected: &Diagram{
-				Width:  800,
-				Height: 400,
+				Width:           800,
+				Height:          400,
+				LayoutDirection: "top-to-bottom",
 				NodeStyle: map[string]string{
 					"shape": "rect",
 					"fill":  "#fff",
@@ -214,10 +216,11 @@ func TestParser(t *testing.T) {
 				(nodes
 					(id "N1" :label "Node 1" :shape "ellipse" :color "red")))`,
 			expected: &Diagram{
-				Width:     800,
-				Height:    400,
-				NodeStyle: map[string]string{},
-				EdgeStyle: map[string]string{},
+				Width:           800,
+				Height:          400,
+				LayoutDirection: "top-to-bottom",
+				NodeStyle:       map[string]string{},
+				EdgeStyle:       map[string]string{},
 				Nodes: []Node{
 					{
 						ID:    "N1",
@@ -241,10 +244,11 @@ func TestParser(t *testing.T) {
 				(edges
 					("A" "B" :label "connects")))`,
 			expected: &Diagram{
-				Width:     800,
-				Height:    400,
-				NodeStyle: map[string]string{},
-				EdgeStyle: map[string]string{},
+				Width:           800,
+				Height:          400,
+				LayoutDirection: "top-to-bottom",
+				NodeStyle:       map[string]string{},
+				EdgeStyle:       map[string]string{},
 				Nodes: []Node{
 					{ID: "A", Label: "A", Attributes: map[string]string{}},
 					{ID: "B", Label: "B", Attributes: map[string]string{}},
@@ -260,12 +264,13 @@ func TestParser(t *testing.T) {
 			input: `(diagram
 				(size 400 200))`,
 			expected: &Diagram{
-				Width:     400,
-				Height:    200,
-				NodeStyle: map[string]string{},
-				EdgeStyle: map[string]string{},
-				Nodes:     []Node{},
-				Edges:     []Edge{},
+				Width:           400,
+				Height:          200,
+				LayoutDirection: "top-to-bottom",
+				NodeStyle:       map[string]string{},
+				EdgeStyle:       map[string]string{},
+				Nodes:           []Node{},
+				Edges:           []Edge{},
 			},
 			hasError: false,
 		},
