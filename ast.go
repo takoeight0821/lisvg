@@ -257,7 +257,7 @@ func (p *Parser) parseLayoutDirection(diagram *Diagram) error {
 	if p.cur.Type != TokenString && p.cur.Type != TokenAtom {
 		return fmt.Errorf("expected layout direction, got %s", p.cur.Value)
 	}
-	
+
 	direction := p.cur.Value
 	// Validate direction
 	switch direction {
@@ -266,7 +266,7 @@ func (p *Parser) parseLayoutDirection(diagram *Diagram) error {
 	default:
 		return fmt.Errorf("invalid layout direction: %s", direction)
 	}
-	
+
 	p.nextToken()
 
 	if p.cur.Type != TokenRParen {

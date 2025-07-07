@@ -129,10 +129,10 @@ func (s *SVGGenerator) generateNode(node LayoutNode) string {
 	case "diamond":
 		// Create diamond shape using polygon
 		points := fmt.Sprintf("%.2f,%.2f %.2f,%.2f %.2f,%.2f %.2f,%.2f",
-			node.X, node.Y-node.Height/2,        // top
-			node.X+node.Width/2, node.Y,         // right
-			node.X, node.Y+node.Height/2,        // bottom
-			node.X-node.Width/2, node.Y)         // left
+			node.X, node.Y-node.Height/2, // top
+			node.X+node.Width/2, node.Y, // right
+			node.X, node.Y+node.Height/2, // bottom
+			node.X-node.Width/2, node.Y) // left
 		sb.WriteString(fmt.Sprintf(`  <polygon points="%s" class="%s"/>`, points, class))
 	default:
 		// Default to ellipse
@@ -161,7 +161,7 @@ func (s *SVGGenerator) generateEdge(edge LayoutEdge) string {
 
 	// Create path from points
 	pathData := fmt.Sprintf("M %.2f %.2f", edge.Points[0].X, edge.Points[0].Y)
-	
+
 	if len(edge.Points) == 2 {
 		// Simple line
 		pathData += fmt.Sprintf(" L %.2f %.2f", edge.Points[1].X, edge.Points[1].Y)

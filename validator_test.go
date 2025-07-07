@@ -8,9 +8,9 @@ import (
 // TestValidatorNodeIDUniqueness tests node ID uniqueness validation
 func TestValidatorNodeIDUniqueness(t *testing.T) {
 	tests := []struct {
-		name      string
-		diagram   *Diagram
-		expectErr bool
+		name        string
+		diagram     *Diagram
+		expectErr   bool
 		errContains string
 	}{
 		{
@@ -33,7 +33,7 @@ func TestValidatorNodeIDUniqueness(t *testing.T) {
 					{ID: "A", Label: "Node A2"},
 				},
 			},
-			expectErr: true,
+			expectErr:   true,
 			errContains: "duplicate node ID: A",
 		},
 		{
@@ -44,7 +44,7 @@ func TestValidatorNodeIDUniqueness(t *testing.T) {
 					{ID: "B", Label: "Node B"},
 				},
 			},
-			expectErr: true,
+			expectErr:   true,
 			errContains: "node ID cannot be empty",
 		},
 		{
@@ -57,7 +57,7 @@ func TestValidatorNodeIDUniqueness(t *testing.T) {
 					{ID: "B", Label: "Node B2"},
 				},
 			},
-			expectErr: true,
+			expectErr:   true,
 			errContains: "duplicate node ID",
 		},
 		{
@@ -92,9 +92,9 @@ func TestValidatorNodeIDUniqueness(t *testing.T) {
 // TestValidatorEdgeReferences tests edge reference validation
 func TestValidatorEdgeReferences(t *testing.T) {
 	tests := []struct {
-		name      string
-		diagram   *Diagram
-		expectErr bool
+		name        string
+		diagram     *Diagram
+		expectErr   bool
 		errContains string
 	}{
 		{
@@ -121,7 +121,7 @@ func TestValidatorEdgeReferences(t *testing.T) {
 					{From: "X", To: "B"},
 				},
 			},
-			expectErr: true,
+			expectErr:   true,
 			errContains: "'from' node 'X' does not exist",
 		},
 		{
@@ -135,7 +135,7 @@ func TestValidatorEdgeReferences(t *testing.T) {
 					{From: "A", To: "Y"},
 				},
 			},
-			expectErr: true,
+			expectErr:   true,
 			errContains: "'to' node 'Y' does not exist",
 		},
 		{
@@ -148,7 +148,7 @@ func TestValidatorEdgeReferences(t *testing.T) {
 					{From: "", To: "A"},
 				},
 			},
-			expectErr: true,
+			expectErr:   true,
 			errContains: "'from' node ID cannot be empty",
 		},
 		{
@@ -161,7 +161,7 @@ func TestValidatorEdgeReferences(t *testing.T) {
 					{From: "A", To: ""},
 				},
 			},
-			expectErr: true,
+			expectErr:   true,
 			errContains: "'to' node ID cannot be empty",
 		},
 		{
@@ -175,7 +175,7 @@ func TestValidatorEdgeReferences(t *testing.T) {
 					{From: "A", To: "Z"},
 				},
 			},
-			expectErr: true,
+			expectErr:   true,
 			errContains: "does not exist",
 		},
 		{
@@ -225,9 +225,9 @@ func TestValidatorEdgeReferences(t *testing.T) {
 // TestValidatorAttributes tests attribute validation
 func TestValidatorAttributes(t *testing.T) {
 	tests := []struct {
-		name      string
-		diagram   *Diagram
-		expectErr bool
+		name        string
+		diagram     *Diagram
+		expectErr   bool
 		errContains string
 	}{
 		{
@@ -257,7 +257,7 @@ func TestValidatorAttributes(t *testing.T) {
 					{ID: "A", Attributes: map[string]string{"shape": "invalid-shape"}},
 				},
 			},
-			expectErr: true,
+			expectErr:   true,
 			errContains: "invalid shape 'invalid-shape'",
 		},
 		{
@@ -282,7 +282,7 @@ func TestValidatorAttributes(t *testing.T) {
 					{From: "A", To: "B", Attributes: map[string]string{"style": "invalid-style"}},
 				},
 			},
-			expectErr: true,
+			expectErr:   true,
 			errContains: "invalid style 'invalid-style'",
 		},
 		{
@@ -308,7 +308,7 @@ func TestValidatorAttributes(t *testing.T) {
 					{From: "A", To: "B", Attributes: map[string]string{"style": "solid"}},
 				},
 			},
-			expectErr: true,
+			expectErr:   true,
 			errContains: "invalid shape 'bad-shape'",
 		},
 	}
@@ -388,16 +388,16 @@ func TestValidatorComplexScenarios(t *testing.T) {
 
 		for i := 0; i < 100; i++ {
 			nodes[i] = Node{
-				ID:    string(rune('A' + i)),
-				Label: "Node " + string(rune('A' + i)),
+				ID:         string(rune('A' + i)),
+				Label:      "Node " + string(rune('A'+i)),
 				Attributes: map[string]string{"shape": "rect"},
 			}
 		}
 
 		for i := 0; i < 99; i++ {
 			edges[i] = Edge{
-				From: string(rune('A' + i)),
-				To:   string(rune('A' + i + 1)),
+				From:       string(rune('A' + i)),
+				To:         string(rune('A' + i + 1)),
 				Attributes: map[string]string{"style": "solid"},
 			}
 		}
@@ -437,7 +437,7 @@ func TestValidatorComplexScenarios(t *testing.T) {
 		}
 
 		validator := NewValidator()
-		
+
 		// First validation
 		err1 := validator.Validate(diagram)
 		if err1 != nil {
@@ -524,7 +524,7 @@ func TestValidatorEdgeCases(t *testing.T) {
 					{ID: "   ", Label: "Whitespace ID"},
 				},
 			},
-			expectErr:   false, // Validator doesn't trim whitespace
+			expectErr: false, // Validator doesn't trim whitespace
 		},
 		{
 			name: "edge with whitespace-only from",
@@ -664,14 +664,14 @@ func TestValidatorEdgeCases(t *testing.T) {
 func TestValidatorNilHandling(t *testing.T) {
 	t.Run("nil diagram", func(t *testing.T) {
 		validator := NewValidator()
-		
+
 		// Validator doesn't handle nil diagrams, it will panic
 		defer func() {
 			if r := recover(); r == nil {
 				t.Errorf("Expected panic for nil diagram")
 			}
 		}()
-		
+
 		_ = validator.Validate(nil)
 	})
 
@@ -773,16 +773,16 @@ func BenchmarkValidator(b *testing.B) {
 
 	for i := 0; i < 50; i++ {
 		nodes[i] = Node{
-			ID:    string(rune('A' + i)),
-			Label: "Node " + string(rune('A' + i)),
+			ID:         string(rune('A' + i)),
+			Label:      "Node " + string(rune('A'+i)),
 			Attributes: map[string]string{"shape": "rect"},
 		}
 	}
 
 	for i := 0; i < 49; i++ {
 		edges[i] = Edge{
-			From: string(rune('A' + i)),
-			To:   string(rune('A' + i + 1)),
+			From:       string(rune('A' + i)),
+			To:         string(rune('A' + i + 1)),
 			Attributes: map[string]string{"style": "solid"},
 		}
 	}

@@ -344,7 +344,7 @@ func TestIntegrationLargeDiagram(t *testing.T) {
 		t.Errorf("Large diagram should generate substantial SVG output")
 	}
 
-	// Check for correct number of elements  
+	// Check for correct number of elements
 	// Count actual shape elements (rect is default)
 	rectCount := strings.Count(svg, `<rect`)
 	if rectCount != 50 {

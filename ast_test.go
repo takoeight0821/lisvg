@@ -280,21 +280,21 @@ func TestParser(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			lexer := NewLexer(tt.input)
 			parser := NewParser(lexer)
-			
+
 			diagram, err := parser.ParseDiagram()
-			
+
 			if tt.hasError {
 				if err == nil {
 					t.Errorf("Expected error, but parsing succeeded")
 				}
 				return
 			}
-			
+
 			if err != nil {
 				t.Errorf("Unexpected error: %v", err)
 				return
 			}
-			
+
 			if !reflect.DeepEqual(diagram, tt.expected) {
 				t.Errorf("Expected diagram %+v, got %+v", tt.expected, diagram)
 			}
@@ -342,9 +342,9 @@ func TestParserErrors(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			lexer := NewLexer(tt.input)
 			parser := NewParser(lexer)
-			
+
 			_, err := parser.ParseDiagram()
-			
+
 			if err == nil {
 				t.Errorf("Expected error for input: %s", tt.input)
 			}
@@ -361,19 +361,19 @@ func TestParserComplexCases(t *testing.T) {
 				(id "終了" :label "終了ノード"))
 			(edges
 				("開始" "終了" :label "処理")))`
-		
+
 		lexer := NewLexer(input)
 		parser := NewParser(lexer)
-		
+
 		diagram, err := parser.ParseDiagram()
 		if err != nil {
 			t.Errorf("Unexpected error with Japanese characters: %v", err)
 		}
-		
+
 		if len(diagram.Nodes) != 2 {
 			t.Errorf("Expected 2 nodes, got %d", len(diagram.Nodes))
 		}
-		
+
 		if diagram.Nodes[0].Label != "開始ノード" {
 			t.Errorf("Expected Japanese label, got %s", diagram.Nodes[0].Label)
 		}
@@ -384,15 +384,15 @@ func TestParserComplexCases(t *testing.T) {
 			(nodes
 				(id atom-id :label "String Label")
 				(id "string-id" :label atom-label)))`
-		
+
 		lexer := NewLexer(input)
 		parser := NewParser(lexer)
-		
+
 		diagram, err := parser.ParseDiagram()
 		if err != nil {
 			t.Errorf("Unexpected error: %v", err)
 		}
-		
+
 		if len(diagram.Nodes) != 2 {
 			t.Errorf("Expected 2 nodes, got %d", len(diagram.Nodes))
 		}
@@ -409,15 +409,15 @@ func TestParserComplexCases(t *testing.T) {
 			; Edges comment
 			(edges
 				("A" "B"))) ; Final comment`
-		
+
 		lexer := NewLexer(input)
 		parser := NewParser(lexer)
-		
+
 		diagram, err := parser.ParseDiagram()
 		if err != nil {
 			t.Errorf("Unexpected error with comments: %v", err)
 		}
-		
+
 		if diagram.Width != 800 || diagram.Height != 400 {
 			t.Errorf("Expected size 800x400, got %dx%d", diagram.Width, diagram.Height)
 		}
@@ -611,9 +611,9 @@ func TestParserDetailedErrors(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			lexer := NewLexer(tt.input)
 			parser := NewParser(lexer)
-			
+
 			_, err := parser.ParseDiagram()
-			
+
 			if tt.errContains == "" {
 				// Test case to check if something that might be valid is actually valid
 				if err != nil {
@@ -636,12 +636,12 @@ func TestParserRecovery(t *testing.T) {
 		input := "(invalid)"
 		lexer := NewLexer(input)
 		parser := NewParser(lexer)
-		
+
 		_, err1 := parser.ParseDiagram()
 		if err1 == nil {
 			t.Errorf("Expected first parse to fail")
 		}
-		
+
 		// Try parsing again - should fail consistently
 		_, err2 := parser.ParseDiagram()
 		if err2 == nil {

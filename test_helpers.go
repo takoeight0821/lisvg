@@ -140,14 +140,14 @@ func CreateInvalidDiagram() *Diagram {
 		EdgeStyle: map[string]string{},
 		Nodes: []Node{
 			{ID: "A", Label: "Node A", Attributes: map[string]string{}},
-			{ID: "A", Label: "Duplicate A", Attributes: map[string]string{}}, // Duplicate ID
-			{ID: "", Label: "Empty ID", Attributes: map[string]string{}},     // Empty ID
+			{ID: "A", Label: "Duplicate A", Attributes: map[string]string{}},                    // Duplicate ID
+			{ID: "", Label: "Empty ID", Attributes: map[string]string{}},                        // Empty ID
 			{ID: "B", Label: "Node B", Attributes: map[string]string{"shape": "invalid-shape"}}, // Invalid shape
 		},
 		Edges: []Edge{
-			{From: "A", To: "C", Label: "A to C"}, // C doesn't exist
-			{From: "", To: "B", Label: "Empty from"},   // Empty from
-			{From: "B", To: "", Label: "Empty to"},     // Empty to
+			{From: "A", To: "C", Label: "A to C"},    // C doesn't exist
+			{From: "", To: "B", Label: "Empty from"}, // Empty from
+			{From: "B", To: "", Label: "Empty to"},   // Empty to
 			{From: "X", To: "Y", Label: "Both invalid", Attributes: map[string]string{"style": "invalid-style"}}, // Both nodes don't exist, invalid style
 		},
 	}
@@ -156,7 +156,7 @@ func CreateInvalidDiagram() *Diagram {
 // ParseTestInput parses S-expression input for testing
 func ParseTestInput(t *testing.T, input string) *Diagram {
 	t.Helper()
-	
+
 	lexer := NewLexer(input)
 	parser := NewParser(lexer)
 	diagram, err := parser.ParseDiagram()
@@ -169,7 +169,7 @@ func ParseTestInput(t *testing.T, input string) *Diagram {
 // ValidateTestDiagram validates a diagram and handles test failures
 func ValidateTestDiagram(t *testing.T, diagram *Diagram) {
 	t.Helper()
-	
+
 	validator := NewValidator()
 	err := validator.Validate(diagram)
 	if err != nil {
@@ -180,7 +180,7 @@ func ValidateTestDiagram(t *testing.T, diagram *Diagram) {
 // LayoutTestDiagram creates layout for a diagram and handles test failures
 func LayoutTestDiagram(t *testing.T, diagram *Diagram) *Layout {
 	t.Helper()
-	
+
 	layouter := NewSimpleLayouter()
 	layout, err := layouter.LayoutDiagram(diagram)
 	if err != nil {
@@ -192,7 +192,7 @@ func LayoutTestDiagram(t *testing.T, diagram *Diagram) *Layout {
 // GenerateTestSVG generates SVG for a layout and handles test failures
 func GenerateTestSVG(t *testing.T, layout *Layout, diagram *Diagram) string {
 	t.Helper()
-	
+
 	generator := NewSVGGenerator()
 	return generator.GenerateWithCustomStyles(layout, diagram)
 }
@@ -200,16 +200,16 @@ func GenerateTestSVG(t *testing.T, layout *Layout, diagram *Diagram) string {
 // CompletePipeline runs the complete compilation pipeline for testing
 func CompletePipeline(t *testing.T, input string) string {
 	t.Helper()
-	
+
 	// Parse
 	diagram := ParseTestInput(t, input)
-	
+
 	// Validate
 	ValidateTestDiagram(t, diagram)
-	
+
 	// Layout
 	layout := LayoutTestDiagram(t, diagram)
-	
+
 	// Generate SVG
 	return GenerateTestSVG(t, layout, diagram)
 }
@@ -217,7 +217,7 @@ func CompletePipeline(t *testing.T, input string) string {
 // AssertSVGContains checks that SVG contains expected content
 func AssertSVGContains(t *testing.T, svg string, expected ...string) {
 	t.Helper()
-	
+
 	for _, exp := range expected {
 		if !strings.Contains(svg, exp) {
 			t.Errorf("SVG should contain '%s'", exp)
@@ -228,7 +228,7 @@ func AssertSVGContains(t *testing.T, svg string, expected ...string) {
 // AssertSVGNotContains checks that SVG does not contain specified content
 func AssertSVGNotContains(t *testing.T, svg string, notExpected ...string) {
 	t.Helper()
-	
+
 	for _, notExp := range notExpected {
 		if strings.Contains(svg, notExp) {
 			t.Errorf("SVG should not contain '%s'", notExp)
@@ -239,7 +239,7 @@ func AssertSVGNotContains(t *testing.T, svg string, notExpected ...string) {
 // AssertValidSVGStructure checks basic SVG structure
 func AssertValidSVGStructure(t *testing.T, svg string) {
 	t.Helper()
-	
+
 	requiredElements := []string{
 		`<?xml version="1.0" encoding="UTF-8"?>`,
 		`<svg xmlns="http://www.w3.org/2000/svg"`,
@@ -247,14 +247,14 @@ func AssertValidSVGStructure(t *testing.T, svg string) {
 		`<defs>`,
 		`</svg>`,
 	}
-	
+
 	AssertSVGContains(t, svg, requiredElements...)
 }
 
 // AssertNodeCount checks that layout has expected number of nodes
 func AssertNodeCount(t *testing.T, layout *Layout, expected int) {
 	t.Helper()
-	
+
 	if len(layout.Nodes) != expected {
 		t.Errorf("Expected %d nodes, got %d", expected, len(layout.Nodes))
 	}
@@ -263,7 +263,7 @@ func AssertNodeCount(t *testing.T, layout *Layout, expected int) {
 // AssertEdgeCount checks that layout has expected number of edges
 func AssertEdgeCount(t *testing.T, layout *Layout, expected int) {
 	t.Helper()
-	
+
 	if len(layout.Edges) != expected {
 		t.Errorf("Expected %d edges, got %d", expected, len(layout.Edges))
 	}
@@ -272,7 +272,7 @@ func AssertEdgeCount(t *testing.T, layout *Layout, expected int) {
 // AssertValidCoordinates checks that all nodes have valid coordinates
 func AssertValidCoordinates(t *testing.T, layout *Layout) {
 	t.Helper()
-	
+
 	for id, node := range layout.Nodes {
 		if node.X < 0 || node.Y < 0 {
 			t.Errorf("Node %s has invalid coordinates: (%.2f, %.2f)", id, node.X, node.Y)
@@ -286,7 +286,7 @@ func AssertValidCoordinates(t *testing.T, layout *Layout) {
 // AssertCanvasSize checks that layout has reasonable canvas size
 func AssertCanvasSize(t *testing.T, layout *Layout) {
 	t.Helper()
-	
+
 	if layout.Width <= 0 || layout.Height <= 0 {
 		t.Errorf("Canvas has invalid size: %.2fx%.2f", layout.Width, layout.Height)
 	}
@@ -295,13 +295,13 @@ func AssertCanvasSize(t *testing.T, layout *Layout) {
 // AssertNodeShape checks that a specific node has expected shape
 func AssertNodeShape(t *testing.T, layout *Layout, nodeID, expectedShape string) {
 	t.Helper()
-	
+
 	node, exists := layout.Nodes[nodeID]
 	if !exists {
 		t.Errorf("Node %s not found in layout", nodeID)
 		return
 	}
-	
+
 	if node.Shape != expectedShape {
 		t.Errorf("Node %s has shape %s, expected %s", nodeID, node.Shape, expectedShape)
 	}
@@ -310,13 +310,13 @@ func AssertNodeShape(t *testing.T, layout *Layout, nodeID, expectedShape string)
 // AssertNodeLabel checks that a specific node has expected label
 func AssertNodeLabel(t *testing.T, layout *Layout, nodeID, expectedLabel string) {
 	t.Helper()
-	
+
 	node, exists := layout.Nodes[nodeID]
 	if !exists {
 		t.Errorf("Node %s not found in layout", nodeID)
 		return
 	}
-	
+
 	if node.Label != expectedLabel {
 		t.Errorf("Node %s has label '%s', expected '%s'", nodeID, node.Label, expectedLabel)
 	}
@@ -325,20 +325,20 @@ func AssertNodeLabel(t *testing.T, layout *Layout, nodeID, expectedLabel string)
 // AssertNodesConnected checks that two nodes are connected by an edge
 func AssertNodesConnected(t *testing.T, layout *Layout, fromID, toID string) {
 	t.Helper()
-	
+
 	for _, edge := range layout.Edges {
 		if edge.From == fromID && edge.To == toID {
 			return // Found connection
 		}
 	}
-	
+
 	t.Errorf("No edge found connecting %s to %s", fromID, toID)
 }
 
 // AssertEdgeLabel checks that an edge has expected label
 func AssertEdgeLabel(t *testing.T, layout *Layout, fromID, toID, expectedLabel string) {
 	t.Helper()
-	
+
 	for _, edge := range layout.Edges {
 		if edge.From == fromID && edge.To == toID {
 			if edge.Label != expectedLabel {
@@ -347,22 +347,22 @@ func AssertEdgeLabel(t *testing.T, layout *Layout, fromID, toID, expectedLabel s
 			return
 		}
 	}
-	
+
 	t.Errorf("No edge found connecting %s to %s", fromID, toID)
 }
 
 // AssertValidationError checks that validation produces expected error
 func AssertValidationError(t *testing.T, diagram *Diagram, expectedErrorSubstring string) {
 	t.Helper()
-	
+
 	validator := NewValidator()
 	err := validator.Validate(diagram)
-	
+
 	if err == nil {
 		t.Errorf("Expected validation error containing '%s', but validation passed", expectedErrorSubstring)
 		return
 	}
-	
+
 	if !strings.Contains(err.Error(), expectedErrorSubstring) {
 		t.Errorf("Expected validation error to contain '%s', got: %v", expectedErrorSubstring, err)
 	}
@@ -371,16 +371,16 @@ func AssertValidationError(t *testing.T, diagram *Diagram, expectedErrorSubstrin
 // AssertParseError checks that parsing produces expected error
 func AssertParseError(t *testing.T, input string, expectedErrorSubstring string) {
 	t.Helper()
-	
+
 	lexer := NewLexer(input)
 	parser := NewParser(lexer)
 	_, err := parser.ParseDiagram()
-	
+
 	if err == nil {
 		t.Errorf("Expected parse error containing '%s', but parsing succeeded", expectedErrorSubstring)
 		return
 	}
-	
+
 	if !strings.Contains(err.Error(), expectedErrorSubstring) {
 		t.Errorf("Expected parse error to contain '%s', got: %v", expectedErrorSubstring, err)
 	}

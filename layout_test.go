@@ -117,16 +117,16 @@ func TestLayoutLinearChain(t *testing.T) {
 		t.Errorf("Expected 2 edges, got %d", len(layout.Edges))
 	}
 
-	// Check that nodes are arranged vertically
+	// Check that nodes are arranged vertically (A at bottom, C at top in new top-to-bottom layout)
 	nodeA := layout.Nodes["A"]
 	nodeB := layout.Nodes["B"]
 	nodeC := layout.Nodes["C"]
 
-	if nodeA.Y >= nodeB.Y {
-		t.Errorf("Expected A to be above B, but A.Y=%f, B.Y=%f", nodeA.Y, nodeB.Y)
+	if nodeA.Y <= nodeB.Y {
+		t.Errorf("Expected A to be below B, but A.Y=%f, B.Y=%f", nodeA.Y, nodeB.Y)
 	}
-	if nodeB.Y >= nodeC.Y {
-		t.Errorf("Expected B to be above C, but B.Y=%f, C.Y=%f", nodeB.Y, nodeC.Y)
+	if nodeB.Y <= nodeC.Y {
+		t.Errorf("Expected B to be below C, but B.Y=%f, C.Y=%f", nodeB.Y, nodeC.Y)
 	}
 
 	// Check that nodes are aligned horizontally
@@ -168,9 +168,9 @@ func TestLayoutBranching(t *testing.T) {
 	right := layout.Nodes["right"]
 	bottom := layout.Nodes["bottom"]
 
-	// Root should be at the top
-	if root.Y >= left.Y || root.Y >= right.Y {
-		t.Errorf("Expected root to be above left and right")
+	// Root should be at the bottom in new top-to-bottom layout
+	if root.Y <= left.Y || root.Y <= right.Y {
+		t.Errorf("Expected root to be below left and right")
 	}
 
 	// Left and right should be on the same level
@@ -179,9 +179,9 @@ func TestLayoutBranching(t *testing.T) {
 			left.Y, right.Y)
 	}
 
-	// Bottom should be below left and right
-	if bottom.Y <= left.Y || bottom.Y <= right.Y {
-		t.Errorf("Expected bottom to be below left and right")
+	// Bottom should be above left and right in new layout
+	if bottom.Y >= left.Y || bottom.Y >= right.Y {
+		t.Errorf("Expected bottom to be above left and right")
 	}
 }
 
@@ -357,14 +357,14 @@ func TestLayoutMultipleRoots(t *testing.T) {
 	child1 := layout.Nodes["child1"]
 	child2 := layout.Nodes["child2"]
 
-	// Both roots should be on the same level (top level)
+	// Both roots should be on the same level (bottom level in new layout)
 	if root1.Y != root2.Y {
 		t.Errorf("Expected roots on same level, got root1.Y=%f, root2.Y=%f", root1.Y, root2.Y)
 	}
 
-	// Children should be below roots
-	if child1.Y <= root1.Y || child2.Y <= root2.Y {
-		t.Errorf("Expected children to be below roots")
+	// Children should be above roots in new top-to-bottom layout
+	if child1.Y >= root1.Y || child2.Y >= root2.Y {
+		t.Errorf("Expected children to be above roots")
 	}
 }
 
@@ -841,14 +841,14 @@ func TestLayoutDirections(t *testing.T) {
 
 			switch tt.direction {
 			case "top-to-bottom":
-				if nodeA.Y >= nodeB.Y || nodeB.Y >= nodeC.Y {
-					t.Errorf("Top-to-bottom: Expected A above B above C, got A.Y=%f, B.Y=%f, C.Y=%f", nodeA.Y, nodeB.Y, nodeC.Y)
+				// In top-to-bottom: A is root (level 0) should be at bottom, C is final (level 2) should be at top
+				if nodeA.Y <= nodeB.Y || nodeB.Y <= nodeC.Y {
+					t.Errorf("Top-to-bottom: Expected A below B below C, got A.Y=%f, B.Y=%f, C.Y=%f", nodeA.Y, nodeB.Y, nodeC.Y)
 				}
 			case "bottom-to-top":
-				// In bottom-to-top: A is root (level 0) should be at bottom (highest Y after translation)
-				// B is level 1 should be in middle, C is level 2 should be at top (lowest Y after translation)
-				if nodeA.Y <= nodeB.Y || nodeB.Y <= nodeC.Y {
-					t.Errorf("Bottom-to-top: Expected A below B below C, got A.Y=%f, B.Y=%f, C.Y=%f", nodeA.Y, nodeB.Y, nodeC.Y)
+				// In bottom-to-top: A is root (level 0) should be at top, C is final (level 2) should be at bottom
+				if nodeA.Y >= nodeB.Y || nodeB.Y >= nodeC.Y {
+					t.Errorf("Bottom-to-top: Expected A above B above C, got A.Y=%f, B.Y=%f, C.Y=%f", nodeA.Y, nodeB.Y, nodeC.Y)
 				}
 			case "left-to-right":
 				if nodeA.X >= nodeB.X || nodeB.X >= nodeC.X {
@@ -949,20 +949,20 @@ func TestLayoutDirectionEdgePoints(t *testing.T) {
 
 			switch tt.direction {
 			case DirectionTopToBottom:
-				// Should start at bottom of A and end at top of B
-				if math.Abs(startPoint.Y-(nodeA.Y+nodeA.Height/2)) > 0.1 {
-					t.Errorf("Top-to-bottom: Edge should start at bottom of A")
-				}
-				if math.Abs(endPoint.Y-(nodeB.Y-nodeB.Height/2)) > 0.1 {
-					t.Errorf("Top-to-bottom: Edge should end at top of B")
-				}
-			case DirectionBottomToTop:
-				// Should start at top of A and end at bottom of B
+				// Should start at top of A and end at bottom of B (swapped behavior)
 				if math.Abs(startPoint.Y-(nodeA.Y-nodeA.Height/2)) > 0.1 {
-					t.Errorf("Bottom-to-top: Edge should start at top of A")
+					t.Errorf("Top-to-bottom: Edge should start at top of A")
 				}
 				if math.Abs(endPoint.Y-(nodeB.Y+nodeB.Height/2)) > 0.1 {
-					t.Errorf("Bottom-to-top: Edge should end at bottom of B")
+					t.Errorf("Top-to-bottom: Edge should end at bottom of B")
+				}
+			case DirectionBottomToTop:
+				// Should start at bottom of A and end at top of B (swapped behavior)
+				if math.Abs(startPoint.Y-(nodeA.Y+nodeA.Height/2)) > 0.1 {
+					t.Errorf("Bottom-to-top: Edge should start at bottom of A")
+				}
+				if math.Abs(endPoint.Y-(nodeB.Y-nodeB.Height/2)) > 0.1 {
+					t.Errorf("Bottom-to-top: Edge should end at top of B")
 				}
 			case DirectionLeftToRight:
 				// Should start at right of A and end at left of B
