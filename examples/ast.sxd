@@ -1,0 +1,70 @@
+; Abstract Syntax Tree (AST) example
+; This shows the structure of parsing the expression: 3 + 4 * 2 / ( 1 - 5 ) ^ 2 ^ 3
+; Demonstrates operator precedence, associativity, and complex nested expressions
+
+(diagram
+  (size 1400 1000)
+  (layout-direction "top-to-bottom")
+
+  ; Default styles for AST nodes
+  (node-style :shape "ellipse" :fill "#f0f8ff" :stroke "#4682b4" :stroke-width "2")
+  (edge-style :stroke "#333" :stroke-width "2")
+
+  ; AST nodes
+  (nodes
+    ; Root expression node
+    (id "root" :label "Expression" :fill "#dda0dd" :shape "diamond")
+
+    ; Main addition operation (lowest precedence)
+    (id "add" :label "+" :fill "#98fb98")
+    (id "num3" :label "3" :shape "rect" :fill "#ffd700")
+
+    ; Complex right side of addition: 4 * 2 / ( 1 - 5 ) ^ 2 ^ 3
+    (id "div" :label "÷" :fill "#ffb6c1")
+    
+    ; Left side of division: 4 * 2
+    (id "mult" :label "×" :fill "#ffb6c1")
+    (id "num4" :label "4" :shape "rect" :fill "#ffd700")
+    (id "num2" :label "2" :shape "rect" :fill "#ffd700")
+
+    ; Right side of division: ( 1 - 5 ) ^ 2 ^ 3
+    (id "exp1" :label "^" :fill "#ff9999")
+    
+    ; Left side of first exponentiation: ( 1 - 5 )
+    (id "sub" :label "-" :fill "#98fb98")
+    (id "num1" :label "1" :shape "rect" :fill "#ffd700")
+    (id "num5" :label "5" :shape "rect" :fill "#ffd700")
+
+    ; Right side of first exponentiation: 2 ^ 3 (right associative)
+    (id "exp2" :label "^" :fill "#ff9999")
+    (id "num2_exp" :label "2" :shape "rect" :fill "#ffd700")
+    (id "num3_exp" :label "3" :shape "rect" :fill "#ffd700"))
+
+  ; Tree structure edges
+  (edges
+    ; Root connections
+    ("root" "add" :label "root")
+
+    ; Addition operation (precedence 3)
+    ("add" "num3" :label "left")
+    ("add" "div" :label "right")
+
+    ; Division operation (precedence 2)
+    ("div" "mult" :label "left")
+    ("div" "exp1" :label "right")
+
+    ; Multiplication operation (precedence 2)
+    ("mult" "num4" :label "left")
+    ("mult" "num2" :label "right")
+
+    ; First exponentiation (precedence 1)
+    ("exp1" "sub" :label "base")
+    ("exp1" "exp2" :label "exponent")
+
+    ; Subtraction in parentheses
+    ("sub" "num1" :label "left")
+    ("sub" "num5" :label "right")
+
+    ; Second exponentiation (right associative)
+    ("exp2" "num2_exp" :label "base")
+    ("exp2" "num3_exp" :label "exponent")))

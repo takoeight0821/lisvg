@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="820" viewBox="0 0 760 820">
+  <style>
+    .node {
+      fill: #ffffff;
+      stroke: #000000;
+      stroke-width: 1;
+      fill: #f0f8ff;
+      stroke: #4682b4;
+      stroke-width: 2;
+    }
+    .edge {
+      fill: none;
+      stroke: #000000;
+      stroke-width: 1;
+      stroke: #333;
+      stroke-width: 2;
+    }
+    .node-label {
+      font-family: Arial, sans-serif;
+      font-size: 12px;
+      text-anchor: middle;
+      dominant-baseline: middle;
+      fill: #000000;
+      pointer-events: none;
+    }
+    .edge-label {
+      font-family: Arial, sans-serif;
+      font-size: 10px;
+      text-anchor: middle;
+      dominant-baseline: middle;
+      fill: #000000;
+      pointer-events: none;
+    }
+  </style>
+
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" 
+            refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#000000"/>
+    </marker>
+  </defs>
+<g transform="translate(20, 800) scale(1, -1)">
+  <path d="M 360.00 690.00 L 360.00 610.00" class="edge" marker-end="url(#arrowhead)"/>
+  <text x="360.00" y="-650.00" class="edge-label" transform="scale(1, -1)">root</text>
+  <path d="M 360.00 560.00 L 270.00 480.00" class="edge" marker-end="url(#arrowhead)"/>
+  <text x="315.00" y="-520.00" class="edge-label" transform="scale(1, -1)">left</text>
+  <path d="M 360.00 560.00 L 450.00 480.00" class="edge" marker-end="url(#arrowhead)"/>
+  <text x="405.00" y="-520.00" class="edge-label" transform="scale(1, -1)">right</text>
+  <path d="M 450.00 430.00 L 270.00 350.00" class="edge" marker-end="url(#arrowhead)"/>
+  <text x="360.00" y="-390.00" class="edge-label" transform="scale(1, -1)">left</text>
+  <path d="M 450.00 430.00 L 450.00 350.00" class="edge" marker-end="url(#arrowhead)"/>
+  <text x="450.00" y="-390.00" class="edge-label" transform="scale(1, -1)">right</text>
+  <path d="M 270.00 300.00 L 90.00 220.00" class="edge" marker-end="url(#arrowhead)"/>
+  <text x="180.00" y="-260.00" class="edge-label" transform="scale(1, -1)">left</text>
+  <path d="M 270.00 300.00 L 270.00 220.00" class="edge" marker-end="url(#arrowhead)"/>
+  <text x="270.00" y="-260.00" class="edge-label" transform="scale(1, -1)">right</text>
+  <path d="M 450.00 300.00 L 450.00 220.00" class="edge" marker-end="url(#arrowhead)"/>
+  <text x="450.00" y="-260.00" class="edge-label" transform="scale(1, -1)">base</text>
+  <path d="M 450.00 300.00 L 630.00 220.00" class="edge" marker-end="url(#arrowhead)"/>
+  <text x="540.00" y="-260.00" class="edge-label" transform="scale(1, -1)">exponent</text>
+  <path d="M 450.00 170.00 L 90.00 90.00" class="edge" marker-end="url(#arrowhead)"/>
+  <text x="270.00" y="-130.00" class="edge-label" transform="scale(1, -1)">left</text>
+  <path d="M 450.00 170.00 L 270.00 90.00" class="edge" marker-end="url(#arrowhead)"/>
+  <text x="360.00" y="-130.00" class="edge-label" transform="scale(1, -1)">right</text>
+  <path d="M 630.00 170.00 L 450.00 90.00" class="edge" marker-end="url(#arrowhead)"/>
+  <text x="540.00" y="-130.00" class="edge-label" transform="scale(1, -1)">base</text>
+  <path d="M 630.00 170.00 L 630.00 90.00" class="edge" marker-end="url(#arrowhead)"/>
+  <text x="630.00" y="-130.00" class="edge-label" transform="scale(1, -1)">exponent</text>
+  <rect x="310.00" y="560.00" width="100.00" height="50.00" class="node rect"/>
+  <text x="360.00" y="-585.00" class="node-label" transform="scale(1, -1)">+</text>
+  <rect x="400.00" y="430.00" width="100.00" height="50.00" class="node rect"/>
+  <text x="450.00" y="-455.00" class="node-label" transform="scale(1, -1)">÷</text>
+  <rect x="400.00" y="300.00" width="100.00" height="50.00" class="node rect"/>
+  <text x="450.00" y="-325.00" class="node-label" transform="scale(1, -1)">^</text>
+  <rect x="580.00" y="170.00" width="100.00" height="50.00" class="node rect"/>
+  <text x="630.00" y="-195.00" class="node-label" transform="scale(1, -1)">^</text>
+  <rect x="220.00" y="300.00" width="100.00" height="50.00" class="node rect"/>
+  <text x="270.00" y="-325.00" class="node-label" transform="scale(1, -1)">×</text>
+  <rect x="40.00" y="40.00" width="100.00" height="50.00" class="node rect"/>
+  <text x="90.00" y="-65.00" class="node-label" transform="scale(1, -1)">1</text>
+  <rect x="220.00" y="170.00" width="100.00" height="50.00" class="node rect"/>
+  <text x="270.00" y="-195.00" class="node-label" transform="scale(1, -1)">2</text>
+  <rect x="400.00" y="40.00" width="100.00" height="50.00" class="node rect"/>
+  <text x="450.00" y="-65.00" class="node-label" transform="scale(1, -1)">2</text>
+  <rect x="220.00" y="430.00" width="100.00" height="50.00" class="node rect"/>
+  <text x="270.00" y="-455.00" class="node-label" transform="scale(1, -1)">3</text>
+  <rect x="580.00" y="40.00" width="100.00" height="50.00" class="node rect"/>
+  <text x="630.00" y="-65.00" class="node-label" transform="scale(1, -1)">3</text>
+  <rect x="40.00" y="170.00" width="100.00" height="50.00" class="node rect"/>
+  <text x="90.00" y="-195.00" class="node-label" transform="scale(1, -1)">4</text>
+  <rect x="220.00" y="40.00" width="100.00" height="50.00" class="node rect"/>
+  <text x="270.00" y="-65.00" class="node-label" transform="scale(1, -1)">5</text>
+  <polygon points="360.00,690.00 410.00,715.00 360.00,740.00 310.00,715.00" class="node diamond"/>
+  <text x="360.00" y="-715.00" class="node-label" transform="scale(1, -1)">Expression</text>
+  <rect x="400.00" y="170.00" width="100.00" height="50.00" class="node rect"/>
+  <text x="450.00" y="-195.00" class="node-label" transform="scale(1, -1)">-</text>
+</g>
+</svg>
